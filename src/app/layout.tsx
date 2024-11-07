@@ -9,7 +9,7 @@ import './globals.scss';
 
 const figtree = Figtree({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: ['700'],
   variable: '--font-figtree'
 });
 
