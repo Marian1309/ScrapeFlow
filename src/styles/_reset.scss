@@ -1,0 +1,53 @@
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased;
+  }
+}
+
+@layer base {
+  :root,
+  html,
+  body {
+    @apply h-full scroll-smooth text-[14px] leading-normal;
+  }
+
+  * {
+    @apply m-0 p-0 outline-none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // Disable Mobile Taps
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+
+  ul li,
+  ol li,
+  li {
+    @apply list-none;
+  }
+
+  a {
+    @apply text-black no-underline;
+  }
+
+  ::-webkit-scrollbar {
+    @apply hidden;
+  }
+}

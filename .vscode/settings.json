@@ -1,0 +1,109 @@
+{
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "indentRainbow.colors": [
+    "rgba(16,16,16,0.1)",
+    "rgba(16,16,16,0.2)",
+    "rgba(16,16,16,0.3)",
+    "rgba(16,16,16,0.4)",
+    "rgba(16,16,16,0.5)",
+    "rgba(16,16,16,0.6)",
+    "rgba(16,16,16,0.7)",
+    "rgba(16,16,16,0.8)",
+    "rgba(16,16,16,0.9)",
+    "rgba(16,16,16,1.0)"
+  ],
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "editor.tabSize": 2,
+  "editor.smoothScrolling": true,
+  "editor.minimap.enabled": false,
+  "editor.wordWrap": "off",
+  "editor.scrollbar.horizontal": "hidden",
+  "editor.scrollbar.vertical": "hidden",
+  "editor.quickSuggestionsDelay": 0,
+  "workbench.layoutControl.enabled": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.quoteStyle": "single",
+  "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
+  "breadcrumbs.enabled": false,
+  "terminal.integrated.fontWeight": "normal",
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "files.autoSave": "onFocusChange",
+  "editor.fontFamily": "JetBrains Mono Thin, Fira Code, Consolas, monospace",
+  "editor.fontWeight": "100",
+  "editor.formatOnSave": true,
+  "files.exclude": {
+    "**/.next": true,
+    "**/node_modules": true
+  },
+  "files.associations": {
+    "*.scss": "tailwindcss"
+  },
+  "editor.cursorBlinking": "solid",
+  "js/ts.implicitProjectConfig.module": "ES2022",
+  "editor.suggestSelection": "first",
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "debug.toolBarLocation": "hidden",
+  "debug.focusWindowOnBreak": false,
+  "debug.showInlineBreakpointCandidates": false,
+  "debug.showBreakpointsInOverviewRuler": false,
+  "editor.formatOnPaste": true,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.renderControlCharacters": false,
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "terminal.integrated.cursorStyle": "underline",
+  "editor.fontLigatures": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.renderWhitespace": "none",
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "workbench.colorTheme": "Material Theme Darker High Contrast",
+  "editor.accessibilityPageSize": 300,
+  "editor.bracketPairColorization.enabled": true,
+  "explorer.expandSingleFolderWorkspaces": false,
+  "explorer.compactFolders": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.organizeImports": "always"
+  },
+  "workbench.iconTheme": "symbols",
+  "[scss]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "breadcrumbs.filePath": "off",
+  "html.autoClosingTags": true,
+  "javascript.autoClosingTags": true,
+  "typescript.autoClosingTags": true,
+  "editor.accessibilitySupport": "off",
+  "editor.glyphMargin": false,
+  "javascript.preferences.quoteStyle": "single",
+  "window.zoomLevel": -1.5,
+  "editor.indentSize": "tabSize",
+  "workbench.editor.editorActionsLocation": "hidden",
+  "symbols.hidesExplorerArrows": false,
+  "workbench.productIconTheme": "Default",
+  "window.commandCenter": false,
+  "editor.inlineSuggest.suppressSuggestions": true,
+  "editor.fontSize": 12.5,
+  "workbench.statusBar.visible": true,
+  "workbench.layoutControl.type": "menu",
+  "explorer.fileNesting.enabled": true,
+  "explorer.sortOrder": "foldersNestsFiles",
+  "workbench.editor.customLabels.patterns": {
+    "**/app/**/page.tsx": "${dirname} - Page",
+    "**/app/**/layout.tsx": "${dirname} - Layout"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

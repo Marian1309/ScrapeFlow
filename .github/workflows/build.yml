@@ -1,0 +1,40 @@
+name: Build Next.js App with Bun
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2.0.1
+
+      - name: Cache Bun modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # Використовуємо Node.js 20
+
+      - name: Install Dependencies with Bun
+        run: bun install
+
+      - name: Build
+        run: bun run build
+
+      - name: Upload Production Build (optional)
+        if: ${{ success() }}
+        run: echo "Upload your production build here if necessary"

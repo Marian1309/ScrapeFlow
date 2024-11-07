@@ -1,0 +1,11 @@
+Dockerfile
+.dockerignore
+node_modules
+.next
+.git
+.env
+.vscode
+.github
+.husky
+README.md
+LICENSE
