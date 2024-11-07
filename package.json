@@ -28,7 +28,7 @@
   },
   "lint-staged": {
     "*.ts|tsx": "eslint --fix",
-    "*": "prettier . -w"
+    "*": "pretty-quick --staged"
   },
   "browserslist": {
     "production": [
