@@ -52,7 +52,6 @@
     "react/jsx-sort-props": "warn",
     "no-console": "warn",
     "object-curly-newline": "warn",
-    "react/no-array-index-key": "warn",
     "react/button-has-type": "warn",
     "n/no-process-env": "warn",
     "prettier/prettier": "off",
@@ -104,7 +103,8 @@
     "react/jsx-one-expression-per-line": "off",
     "no-prototype-builtins": "off",
     "no-nested-ternary": "off",
-    "no-unused-expressions": "off"
+    "no-unused-expressions": "off",
+    "react/no-array-index-key": "off"
   },
   "globals": {
     "process": true,

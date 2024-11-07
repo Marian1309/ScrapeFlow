@@ -56,6 +56,7 @@ const config = {
   theme: {
     container: {
       center: true,
+      padding: '2rem',
       screens: {
         nano: '320px',
         xs: '480px',

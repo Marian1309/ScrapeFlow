@@ -14,8 +14,8 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: 'Next.js 14 Starter App',
-  description: 'Next.js 14 Basic Starter App'
+  title: 'ScrapeFlow',
+  description: 'ScrapeFlow is a tool for scraping data from websites.'
 };
 
 type Props = PropsWithChildren;

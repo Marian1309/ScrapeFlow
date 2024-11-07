@@ -1,11 +1,15 @@
 @layer base {
   :root {
-    --text-accent: 262.1 83.3% 57.8%;
-    --text-accent-hover: 210 20% 98%;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
   }
 
-  [data-theme='green'] {
-    --text-accent: 143 100% 50%;
-    --text-accent-hover: 143 100% 44.1%;
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --foreground-rgb: 255, 255, 255;
+      --background-start-rgb: 0, 0, 0;
+      --background-end-rgb: 0, 0, 0;
+    }
   }
 }
