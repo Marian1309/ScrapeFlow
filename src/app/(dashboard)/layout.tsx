@@ -3,7 +3,7 @@ import type { FC, PropsWithChildren } from 'react';
 import { Separator } from '@/components/ui/separator';
 
 import { BreadcrumbHeader, ThemeToggle } from '@/components/blocks';
-import DesktopSidebar from '@/components/sidebar';
+import DesktopSidebar, { MobileSidebar } from '@/components/sidebar';
 
 type Props = PropsWithChildren;
 
@@ -14,6 +14,7 @@ const DashboardLayout: FC<Props> = ({ children }) => {
 
       <div className="flex min-h-screen flex-1 flex-col">
         <header className="flex h-[50px] items-center justify-between px-6 py-4">
+          <MobileSidebar />
           <BreadcrumbHeader />
 
           <div className="flex items-center gap-1">

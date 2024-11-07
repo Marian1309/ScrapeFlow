@@ -1,20 +1,15 @@
 'use client';
 
 import type { FC } from 'react';
+import { useState } from 'react';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { MenuIcon } from 'lucide-react';
 
-import SIDEBAR_ROUTES from '@/data/sidebar-routes';
-
-import { buttonVariants } from './ui/button';
-import { Logo } from './ui/custom';
+import { Button } from './ui/button';
+import { Logo, SidebarRouteList } from './ui/custom';
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 
 const DesktopSidebar: FC = () => {
-  const pathname = usePathname();
-
-  const isActive = SIDEBAR_ROUTES.find((route) => route.href === pathname);
-
   return (
     <div className="relative hidden h-screen w-full min-w-[280px] max-w-[280px] border-separate overflow-hidden border-r-2 bg-primary/5 text-muted-foreground dark:bg-secondary/30 dark:text-foreground md:block">
       <div className="border-separate gap-2 border-b-[1px] p-4 flex-center">
@@ -23,20 +18,31 @@ const DesktopSidebar: FC = () => {
 
       <div className="p-2">TODO CREDITS</div>
 
-      <div className="flex flex-col gap-y-1 p-2">
-        {SIDEBAR_ROUTES.map((route) => (
-          <Link
-            className={buttonVariants({
-              variant: route.href === isActive?.href ? 'sidebarActiveItem' : 'sidebarItem'
-            })}
-            href={route.href}
-            key={route._id}
-          >
-            <route.icon size={20} />
-            {route.label}
-          </Link>
-        ))}
-      </div>
+      <SidebarRouteList />
+    </div>
+  );
+};
+
+export const MobileSidebar: FC = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  return (
+    <div className="block border-separate bg-background md:hidden">
+      <nav className="container flex items-center justify-between">
+        <Sheet onOpenChange={setIsOpen} open={isOpen}>
+          <SheetTrigger asChild>
+            <Button size="icon" variant="ghost">
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+
+          <SheetContent className="w-[400px] space-y-4 sm:w-[540px]" side="left">
+            <Logo />
+
+            <SidebarRouteList onClick={() => setIsOpen((prev) => !prev)} />
+          </SheetContent>
+        </Sheet>
+      </nav>
     </div>
   );
 };
