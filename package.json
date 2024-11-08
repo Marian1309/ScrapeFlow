@@ -24,7 +24,8 @@
     "db:pull": "prisma db pull",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev --name",
-    "db:gen": "prisma generate"
+    "db:gen": "prisma generate",
+    "db:studio": "prisma studio"
   },
   "lint-staged": {
     "*.ts|tsx": "eslint --fix",
@@ -101,6 +102,7 @@
     "@commitlint/format": "^19.5.0",
     "@commitlint/types": "^19.5.0",
     "@next/bundle-analyzer": "^14.2.15",
+    "@tanstack/react-query-devtools": "^5.59.20",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^20",
     "@types/react": "^18",
