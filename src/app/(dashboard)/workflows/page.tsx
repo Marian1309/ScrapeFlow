@@ -2,7 +2,11 @@ import { Suspense } from 'react';
 
 import type { NextPage } from 'next';
 
-import { UserWorkflows, UserWorkflowsSkeleton } from './_components';
+import {
+  CreateWorkflowDialog,
+  UserWorkflows,
+  UserWorkflowsSkeleton
+} from './_components';
 
 const WorkflowsPage: NextPage = () => {
   return (
@@ -12,6 +16,8 @@ const WorkflowsPage: NextPage = () => {
           <h1 className="text-3xl font-bold">Workflows</h1>
           <p className="text-muted-foreground">Manage your workflows</p>
         </div>
+
+        <CreateWorkflowDialog />
       </div>
 
       <div className="h-full py-6">
