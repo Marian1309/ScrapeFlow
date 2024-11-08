@@ -7,6 +7,9 @@ import { GetWorkflowsForUser } from '@/actions/workflows';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
+import CreateWorkflowDialog from './create-workflow-dialog';
+import WorkflowCard from './workflow-card';
+
 const UserWorkflows: FC = async () => {
   const workflows = (await GetWorkflowsForUser()) as Error | Workflow[];
 
@@ -33,9 +36,20 @@ const UserWorkflows: FC = async () => {
             Click the button below to create your first workflow.
           </p>
         </div>
+
+        <CreateWorkflowDialog triggerText="Create your first workflow" />
       </div>
     );
   }
+
+  return (
+    <div className="grid grid-cols-1 gap-4">
+      {Array.isArray(workflows) &&
+        workflows.map((workflow) => (
+          <WorkflowCard key={workflow.id} workflow={workflow} />
+        ))}
+    </div>
+  );
 };
 
 export default UserWorkflows;

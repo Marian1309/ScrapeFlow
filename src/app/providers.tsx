@@ -1,5 +1,7 @@
 import type { FC, PropsWithChildren } from 'react';
 
+import { Toaster } from '@/components/ui/sonner';
+
 import { NextThemesProvider, TanstackQueryProvider } from '@/components/providers';
 
 type Props = PropsWithChildren;
@@ -14,6 +16,8 @@ const Providers: FC<Props> = ({ children }) => {
         themes={['light', 'dark']}
       >
         {children}
+
+        <Toaster richColors />
       </NextThemesProvider>
     </TanstackQueryProvider>
   );
