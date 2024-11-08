@@ -20,7 +20,8 @@ const prettierConfig = {
 
     '^@/types',
 
-    '^@/prisma',
+    '^@/db',
+    '^@/actions/(.*)$',
 
     '^@/data/(.*)$',
     '^@/lib/(.*)$',
@@ -29,8 +30,6 @@ const prettierConfig = {
     '^@/components/ui/(.*)$',
     '^@/components/(.*)$',
     '^./ui/(.*)$',
-
-    '^@/features/(.*)$',
 
     '^@/(.*)$',
     '^../(.*)$',
