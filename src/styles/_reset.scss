@@ -23,7 +23,7 @@
   *::before,
   *::after {
     @apply box-border;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // Disable Mobile Taps
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   button {

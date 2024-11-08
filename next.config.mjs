@@ -1,6 +1,7 @@
 import bundleAnalyzer from '@next/bundle-analyzer';
 
 const withBundleAnalyzer = bundleAnalyzer({
+  // eslint-disable-next-line n/no-process-env
   enabled: process.env.ANALYZE === 'true'
 });
 
@@ -10,9 +11,6 @@ const nextConfig = {
   swcMinify: true,
   images: {
     remotePatterns: []
-  },
-  experimental: {
-    typedRoutes: true
   }
 };
 
