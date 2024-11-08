@@ -31,7 +31,7 @@ const CreateWorkflowDialog: FC<Props> = ({ triggerText }) => {
     <Dialog
       onOpenChange={() => {
         form.reset();
-        setIsOpen(isOpen);
+        setIsOpen((prev) => !prev);
       }}
       open={isOpen}
     >

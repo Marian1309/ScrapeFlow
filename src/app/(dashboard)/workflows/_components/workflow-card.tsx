@@ -69,7 +69,7 @@ const WorkflowCard: FC<Props> = ({ workflow }) => {
             Edit
           </Link>
 
-          <WorkflowActions />
+          <WorkflowActions workflowId={workflow.id} workflowName={workflow.name} />
         </div>
       </CardContent>
     </Card>
