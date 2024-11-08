@@ -3,6 +3,8 @@ import type { FC, PropsWithChildren } from 'react';
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 
+import { ClerkProvider } from '@clerk/nextjs';
+
 import Providers from './providers';
 
 import './globals.scss';
@@ -22,13 +24,22 @@ type Props = PropsWithChildren;
 
 const RootLayout: FC<Props> = ({ children }) => {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={figtree.variable}>
-        <Providers>
-          <main>{children}</main>
-        </Providers>
-      </body>
-    </html>
+    <ClerkProvider
+      afterSignOutUrl="/sign-in"
+      appearance={{
+        elements: {
+          formButtonPrimary: 'bg-primary hover:bg-primary/90 text-sm !shadow-none'
+        }
+      }}
+    >
+      <html lang="en" suppressHydrationWarning>
+        <body className={figtree.variable}>
+          <Providers>
+            <main>{children}</main>
+          </Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 };
 

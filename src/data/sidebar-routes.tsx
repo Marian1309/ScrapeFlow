@@ -1,6 +1,14 @@
+import type { LucideIcon } from 'lucide-react';
 import { CoinsIcon, HomeIcon, Layers2Icon, ShieldCheckIcon } from 'lucide-react';
 
-const SIDEBAR_ROUTES = [
+type SidebarRoute = {
+  _id: number;
+  href: string;
+  label: string;
+  icon: LucideIcon;
+};
+
+const SIDEBAR_ROUTES: SidebarRoute[] = [
   {
     _id: 1,
     href: '/',

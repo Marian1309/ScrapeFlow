@@ -5,6 +5,8 @@ import type { FC } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
+import DROPDOWN_MENU_ITEMS from '@/data/theme-menu-items';
+
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -15,12 +17,6 @@ import {
 
 const ThemeToggle: FC = () => {
   const { setTheme } = useTheme();
-
-  const DROPDOWN_MENU_ITEMS: { label: string; id: number }[] = [
-    { label: 'Light', id: 1 },
-    { label: 'Dark', id: 2 },
-    { label: 'System', id: 3 }
-  ];
 
   return (
     <DropdownMenu>

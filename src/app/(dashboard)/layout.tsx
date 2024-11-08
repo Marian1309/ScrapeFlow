@@ -1,5 +1,7 @@
 import type { FC, PropsWithChildren } from 'react';
 
+import { SignedIn, UserButton } from '@clerk/nextjs';
+
 import { Separator } from '@/components/ui/separator';
 
 import { BreadcrumbHeader, ThemeToggle } from '@/components/blocks';
@@ -17,8 +19,11 @@ const DashboardLayout: FC<Props> = ({ children }) => {
           <MobileSidebar />
           <BreadcrumbHeader />
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 gap-x-2">
             <ThemeToggle />
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </header>
 
