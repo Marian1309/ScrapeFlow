@@ -18,7 +18,7 @@ const NodeCard: FC<Props> = ({ children, nodeId, isSelected }) => {
   return (
     <div
       className={cn(
-        'flex-colw-[420px] flex border-separate cursor-pointer gap-1 rounded-md border-2 bg-background text-xs',
+        'flex w-[420px] border-separate cursor-pointer flex-col gap-1 rounded-md border-2 bg-background text-xs',
         isSelected && 'border-primary'
       )}
       onDoubleClick={handleNodeCenter}
