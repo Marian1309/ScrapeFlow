@@ -12,6 +12,7 @@
     "depcheck": "depcheck",
     "clean": "rimraf bun.lockb && rimraf .next && rm -rf node_modules",
     "prepare": "husky",
+    "postinstall": "prisma generate",
     "dev": "next dev",
     "build": "next build",
     "prod": "next build && next start",
@@ -141,8 +142,5 @@
   "packageManager": "bun@1.1.30",
   "engines": {
     "node": ">=20.x.x"
-  },
-  "prisma": {
-    "schema": "./src/prisma/schema.prisma"
   }
 }

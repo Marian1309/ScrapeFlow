@@ -4,27 +4,31 @@ import { revalidatePath } from 'next/cache';
 
 import { auth } from '@clerk/nextjs/server';
 
-import prisma from '@/db';
+import db from '@/db';
 
 import { waitFor } from '@/lib/helper';
 
 const deleteWorkflow = async (workflowId: string) => {
-  const { userId } = await auth();
+  try {
+    const { userId } = await auth();
 
-  if (!userId) {
-    return new Error('Unauthorized');
-  }
-
-  await waitFor(1000);
-
-  await prisma.workflow.delete({
-    where: {
-      id: workflowId,
-      userId
+    if (!userId) {
+      return new Error('Unauthorized');
     }
-  });
 
-  revalidatePath('/workflows');
+    await waitFor(1000);
+
+    await db.workflow.delete({
+      where: {
+        id: workflowId,
+        userId
+      }
+    });
+
+    revalidatePath('/workflows');
+  } catch (error: unknown) {
+    return error instanceof Error ? error : new Error('Unknown error occurred');
+  }
 };
 
 export default deleteWorkflow;

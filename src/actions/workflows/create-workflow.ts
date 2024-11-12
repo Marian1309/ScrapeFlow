@@ -6,40 +6,46 @@ import { auth } from '@clerk/nextjs/server';
 
 import { WorkflowStatus } from '@/types/workflow';
 
-import prisma from '@/db';
+import db from '@/db';
 
 import { waitFor } from '@/lib/helper';
 
 import type { CreateWorkflowSchema } from '@/schema/workflow';
 import { createWorkflowSchema } from '@/schema/workflow';
 
-export const createWorkflow = async (form: CreateWorkflowSchema) => {
-  const { success, data } = createWorkflowSchema.safeParse(form);
+const createWorkflow = async (form: CreateWorkflowSchema) => {
+  try {
+    const { success, data } = createWorkflowSchema.safeParse(form);
 
-  if (!success) {
-    return new Error('Invalid form data');
-  }
-
-  const { userId } = await auth();
-
-  if (!userId) {
-    return new Error('Unauthorized');
-  }
-
-  await waitFor(1000); // REMOVE
-
-  const result = await prisma.workflow.create({
-    data: {
-      userId,
-      status: WorkflowStatus.DRAFT,
-      definition: 'TODO',
-      ...data
+    if (!success) {
+      return new Error('Invalid form data');
     }
-  });
 
-  if (!result) {
-    return new Error('Failed to create workflow');
+    const { userId } = await auth();
+
+    if (!userId) {
+      return new Error('Unauthorized');
+    }
+
+    await waitFor(1000); // REMOVE
+
+    const createdWorkflow = await db.workflow.create({
+      data: {
+        userId,
+        status: WorkflowStatus.DRAFT,
+        definition: 'TODO',
+        ...data
+      }
+    });
+
+    if (!createdWorkflow) {
+      return new Error('Failed to create workflow');
+    }
+
+    redirect(`/workflows/editor/${createdWorkflow.id}`);
+  } catch (error: unknown) {
+    return error instanceof Error ? error : new Error('Unknown error occurred');
   }
-
-  redirect(`/workflows/editor/${result.id}`);
 };
+
+export default createWorkflow;

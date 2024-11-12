@@ -2,23 +2,29 @@
 
 import { auth } from '@clerk/nextjs/server';
 
-import prisma from '@/db';
+import db from '@/db';
 
-const GetWorkflowsForUser = async () => {
-  const { userId } = await auth();
+const getWorkflowsForUser = async () => {
+  try {
+    const { userId } = await auth();
 
-  if (!userId) {
-    return new Error('Unauthorized');
-  }
-
-  return prisma.workflow.findMany({
-    where: {
-      userId
-    },
-    orderBy: {
-      createdAt: 'asc'
+    if (!userId) {
+      return new Error('Unauthorized');
     }
-  });
+
+    const userWorkflows = await db.workflow.findMany({
+      where: {
+        userId
+      },
+      orderBy: {
+        createdAt: 'asc'
+      }
+    });
+
+    return userWorkflows;
+  } catch (error: unknown) {
+    return error instanceof Error ? error : new Error('Unknown error occurred');
+  }
 };
 
-export default GetWorkflowsForUser;
+export default getWorkflowsForUser;
