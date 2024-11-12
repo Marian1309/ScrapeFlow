@@ -33,7 +33,7 @@
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "files.autoSave": "onFocusChange",
-  "editor.fontFamily": "JetBrains Mono Thin, Fira Code, Consolas, monospace",
+  "editor.fontFamily": "JetBrains Mono, Fira Code, Consolas, monospace",
   "editor.fontWeight": "100",
   "editor.formatOnSave": true,
   "files.exclude": {
@@ -96,7 +96,7 @@
   "workbench.productIconTheme": "Default",
   "window.commandCenter": false,
   "editor.inlineSuggest.suppressSuggestions": true,
-  "editor.fontSize": 12.5,
+  "editor.fontSize": 14,
   "workbench.statusBar.visible": true,
   "workbench.layoutControl.type": "menu",
   "explorer.fileNesting.enabled": true,

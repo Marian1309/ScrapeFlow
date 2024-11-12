@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '../styles/shadcn-ui';
 @import '../styles/reset';
-@import '../styles/theming';
+@import '../styles/theme';
 @import '../styles/third_party_rewrite';
 
 @layer base {

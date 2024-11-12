@@ -29,8 +29,10 @@
     "db:studio": "prisma studio"
   },
   "lint-staged": {
-    "*.ts|tsx": "eslint --fix",
-    "*": "pretty-quick --staged"
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "cross-env TAILWIND=true pretty-quick --staged"
+    ]
   },
   "browserslist": {
     "production": [
