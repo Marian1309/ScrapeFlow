@@ -30,7 +30,11 @@ const TaskMenu = () => {
   );
 };
 
-const TaskMenuBtn: FC<{ taskType: TaskType }> = ({ taskType }) => {
+type Props = {
+  taskType: TaskType;
+};
+
+const TaskMenuBtn: FC<Props> = ({ taskType }) => {
   const task = TaskRegistry[taskType];
 
   const onDragStart = (e: DragEvent<HTMLButtonElement>, type: TaskType) => {

@@ -32,6 +32,7 @@ const NodeInput: FC<Props> = ({ nodeId, param }) => {
             COLOR_FOR_HANDLE[param.type]
           )}
           id={param.name}
+          isConnectable={!isConnected}
           position={Position.Left}
           type="target"
         />
