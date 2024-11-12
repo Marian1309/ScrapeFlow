@@ -1,0 +1,1 @@
+- optimize favicon image size
