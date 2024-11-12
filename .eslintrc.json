@@ -54,12 +54,7 @@
     "object-curly-newline": "warn",
     "react/button-has-type": "warn",
     "n/no-process-env": "warn",
-    "prettier/prettier": [
-      "warn",
-      {
-        "endOfLine": "auto"
-      }
-    ],
+    "prettier/prettier": "off",
     "no-var": "off",
     "arrow-body-style": "off",
     "react/jsx-no-useless-fragment": "off",
