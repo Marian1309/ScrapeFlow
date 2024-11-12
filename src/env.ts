@@ -7,7 +7,6 @@ const env = createEnv({
     DATABASE_URL: z.string().url()
   },
   client: {},
-  // eslint-disable-next-line n/no-process-env
   experimental__runtimeEnv: process.env,
   emptyStringAsUndefined: true
 });
