@@ -4,7 +4,7 @@ import type { DragEvent } from 'react';
 import { type FC, useCallback, useEffect } from 'react';
 
 import type { Workflow } from '@prisma/client';
-import type { Connection, Edge, Node } from '@xyflow/react';
+import type { Connection, Edge } from '@xyflow/react';
 import {
   Background,
   BackgroundVariant,
@@ -23,7 +23,6 @@ import type { AppNode } from '@/types/app-node';
 import type { TaskType } from '@/types/task';
 
 import createFlowNode from '@/lib/workflow/create-flow-node';
-import { TaskRegistry } from '@/lib/workflow/task/registry';
 
 import DeletableEdge from './edges/deletable-edge';
 import NodeComponent from './nodes/node-component';
@@ -110,61 +109,82 @@ const FlowEditor: FC<Props> = ({ workflow }) => {
     [nodes, setEdges, updateNodeData]
   );
 
-  const isValidConnection = useCallback((connection: Edge | Connection) => {
-    // Prevent self-connections
-    if (connection.source == connection.target) {
-      return false;
-    }
-
-    // Same taskParam type connection
-    const source = nodes.find((ns) => ns.id === connection.source);
-    const target = nodes.find((ns) => ns.id === connection.target);
-
-    if (!source || !target) {
-      console.log('Invalid connection: source or target node not found');
-      return false;
-    }
-
-    const sourceTask = TaskRegistry[source.data.type];
-    const targetTask = TaskRegistry[target.data.type];
-
-    const output = sourceTask.outputs.find((op) => op.name === connection.sourceHandle);
-    const input = targetTask.inputs.find((ip) => ip.name === connection.targetHandle);
-
-    if (input?.type !== output?.type) {
-      console.log('Invalid connection: type mismatch');
-      return false;
-    }
-
-    const hasCycle = (node: Node, visited = new Set()) => {
-      if (visited.has(node.id)) {
+  const isValidConnection = useCallback(
+    (connection: Edge | Connection) => {
+      // Prevent self-connections
+      if (connection.source === connection.target) {
         return false;
       }
 
-      visited.add(node.id);
+      // Find source and target nodes
+      const sourceNode = nodes.find((node) => node.id === connection.source);
+      const targetNode = nodes.find((node) => node.id === connection.target);
 
-      for (const outgoer of getOutgoers(node, nodes, edges)) {
-        if (outgoer.id === connection.source) {
-          return true;
-        }
+      if (!sourceNode || !targetNode) {
+        return false;
+      }
 
-        if (hasCycle(outgoer, visited)) {
-          return true;
+      // Check if the connection already exists
+      const connectionExists = edges.some(
+        (edge) =>
+          edge.source === connection.source &&
+          edge.target === connection.target &&
+          edge.sourceHandle === connection.sourceHandle &&
+          edge.targetHandle === connection.targetHandle
+      );
+
+      if (connectionExists) {
+        return false;
+      }
+
+      // Prevent connections between incompatible types
+      const isExtractTextNode = targetNode.type === 'ExtractTextNode';
+      const isLaunchBrowserNode = sourceNode.type === 'LaunchBrowserNode';
+
+      if (isExtractTextNode && isLaunchBrowserNode) {
+        // If the target is Extract Text node and specifically its HTML input
+        if (connection.targetHandle === 'html') {
+          return false;
         }
       }
 
-      return false;
-    };
+      // Check if the target node already has an input for this handle
+      if (connection.targetHandle) {
+        const existingInput = edges.find(
+          (edge) =>
+            edge.target === connection.target &&
+            edge.targetHandle === connection.targetHandle
+        );
+        if (existingInput) {
+          return false;
+        }
+      }
 
-    const detectedCycle = hasCycle(target);
+      // Check for circular dependencies
+      const wouldCreateCycle = (
+        source: string,
+        target: string,
+        visited = new Set<string>()
+      ): boolean => {
+        if (source === target) return true;
+        if (visited.has(source)) return false;
 
-    if (detectedCycle) {
-      console.log('Invalid connection: cycle detected');
-      return false;
-    }
+        visited.add(source);
 
-    return true;
-  }, []);
+        const outgoers = getOutgoers({ id: source }, nodes, edges);
+        return outgoers.some((outgoer) =>
+          wouldCreateCycle(outgoer.id, target, new Set(visited))
+        );
+      };
+
+      if (wouldCreateCycle(connection.target, connection.source)) {
+        return false;
+      }
+
+      return true;
+    },
+    [nodes, edges]
+  );
 
   return (
     <div className="h-full w-full">

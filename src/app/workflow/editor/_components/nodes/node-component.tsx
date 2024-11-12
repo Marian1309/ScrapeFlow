@@ -18,7 +18,7 @@ const NodeComponent = memo((props: NodeProps) => {
 
   return (
     <NodeCard isSelected={!!props.selected} nodeId={props.id}>
-      <NodeHeader taskType={nodeData.type} />
+      <NodeHeader nodeId={props.id} taskType={nodeData.type} />
 
       <div className="flex flex-col gap-2 divide-y">
         {task.inputs.map((input) => (
