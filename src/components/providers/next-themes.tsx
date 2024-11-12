@@ -3,8 +3,8 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
+import type { ThemeProviderProps } from 'next-themes';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import type { ThemeProviderProps } from 'next-themes/dist/types';
 
 const ThemeProvider: FC<ThemeProviderProps> = ({ children, ...props }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);

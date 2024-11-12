@@ -1,10 +1,10 @@
-import type { FC, PropsWithChildren } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { Toaster } from '@/components/ui/sonner';
 
 import { NextThemesProvider, TanstackQueryProvider } from '@/components/providers';
 
-type Props = PropsWithChildren;
+type Props = { children: ReactNode };
 
 const Providers: FC<Props> = ({ children }) => {
   return (

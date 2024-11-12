@@ -15,7 +15,8 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel
+  FormLabel,
+  FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,16 +26,11 @@ type Props = {
 };
 
 const CreateWorkflowDialog: FC<Props> = ({ triggerText }) => {
-  const { isOpen, setIsOpen, form, isPending, handleSubmit } = useCreateWorkflow();
+  const { isOpen, form, isPending, handleSubmit, handleToggleDialog } =
+    useCreateWorkflow();
 
   return (
-    <Dialog
-      onOpenChange={() => {
-        form.reset();
-        setIsOpen((prev) => !prev);
-      }}
-      open={isOpen}
-    >
+    <Dialog onOpenChange={handleToggleDialog} open={isOpen}>
       <DialogTrigger asChild>
         <Button>{triggerText ?? 'Create workflow'}</Button>
       </DialogTrigger>
@@ -54,8 +50,10 @@ const CreateWorkflowDialog: FC<Props> = ({ triggerText }) => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-1">
-                      Name <p className="text-xs text-primary">(required)</p>
+                    <FormLabel className="gap-1 flex-between">
+                      <p>Name</p>
+
+                      <FormMessage />
                     </FormLabel>
 
                     <FormControl>
@@ -74,8 +72,10 @@ const CreateWorkflowDialog: FC<Props> = ({ triggerText }) => {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-1">
-                      Description <p className="text-xs text-primary">(required)</p>
+                    <FormLabel className="gap-1 flex-between">
+                      <p>Description</p>
+
+                      <FormMessage />
                     </FormLabel>
 
                     <FormControl>

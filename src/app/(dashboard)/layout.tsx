@@ -1,4 +1,4 @@
-import type { FC, PropsWithChildren } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { SignedIn, UserButton } from '@clerk/nextjs';
 
@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { BreadcrumbHeader, ThemeToggle } from '@/components/blocks';
 import DesktopSidebar, { MobileSidebar } from '@/components/sidebar';
 
-type Props = PropsWithChildren;
+type Props = { children: ReactNode };
 
 const DashboardLayout: FC<Props> = ({ children }) => {
   return (

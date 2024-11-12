@@ -1,4 +1,4 @@
-import type { FC, PropsWithChildren } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: 'ScrapeFlow is a tool for scraping data from websites.'
 };
 
-type Props = PropsWithChildren;
+type Props = { children: ReactNode };
 
 const RootLayout: FC<Props> = ({ children }) => {
   return (
