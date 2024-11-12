@@ -8,10 +8,13 @@ export const launchBrowserTask = {
   label: 'Launch Browser',
   icon: (props: LucideProps) => <GlobeIcon {...props} />,
   isEntryPoint: true,
-  inputs: {
-    url: {
-      type: 'string',
-      required: true
+  inputs: [
+    {
+      name: 'Website URL',
+      type: 'STRING',
+      required: true,
+      helperText: 'eg: https://www.google.com',
+      hideHandle: true
     }
-  }
+  ]
 };

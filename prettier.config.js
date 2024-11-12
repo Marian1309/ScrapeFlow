@@ -1,5 +1,7 @@
 /** @type {import('prettier').Config} */
 
+const isTailwind = process.env.TAILWIND;
+
 const prettierConfig = {
   printWidth: 90,
   trailingComma: 'none',
@@ -40,7 +42,12 @@ const prettierConfig = {
   ],
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
+  plugins: ['@trivago/prettier-plugin-sort-imports']
+};
+
+const withTailwind = {
+  ...prettierConfig,
   plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss']
 };
 
-module.exports = prettierConfig;
+module.exports = isTailwind ? withTailwind : prettierConfig;
