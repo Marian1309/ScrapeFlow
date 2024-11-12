@@ -9,6 +9,7 @@ import type { AppNode } from '@/types/app-node';
 import type { TaskParam } from '@/types/task';
 import { TaskParamType } from '@/types/task';
 
+import BrowserInstanceParam from './param/browser-instance-param';
 import StringParam from './param/string-param';
 
 type Props = {
@@ -38,6 +39,8 @@ const NodeParamField: FC<Props> = ({ nodeId, param }) => {
   switch (param.type) {
     case TaskParamType.STRING:
       return <StringParam onChange={updateNodeParamValue} param={param} value={value} />;
+    case TaskParamType.BROWSER_INSTANCE:
+      return <BrowserInstanceParam param={param} />;
     default:
       return (
         <div className="w-full">

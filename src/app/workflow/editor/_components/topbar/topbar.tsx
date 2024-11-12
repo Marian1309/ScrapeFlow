@@ -22,7 +22,7 @@ const Topbar: FC<Props> = ({ subtitle, title, workflowId }) => {
   const router = useRouter();
 
   return (
-    <header className="border-p-2 sticky top-0 z-10 flex h-[60px] w-full border-separate justify-between bg-background p-2">
+    <header className="sticky top-0 z-10 flex h-[60px] w-full border-separate justify-between border-b-2 bg-background p-2">
       <div className="flex flex-1 items-center gap-1">
         <TooltipWrapper content="Back">
           <Button onClick={() => router.back()} variant="ghost">

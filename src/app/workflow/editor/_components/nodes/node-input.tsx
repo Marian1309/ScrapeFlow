@@ -4,6 +4,9 @@ import { Handle, Position } from '@xyflow/react';
 
 import type { TaskParam } from '@/types/task';
 
+import { cn } from '@/lib/utils';
+
+import COLOR_FOR_HANDLE from './common';
 import NodeParamField from './node-param-field';
 
 type Props = {
@@ -18,7 +21,10 @@ const NodeInput: FC<Props> = ({ nodeId, param }) => {
 
       {!param.hideHandle && (
         <Handle
-          className="!-left-2 !h-4 !w-4 !border-2 !border-background !bg-muted-foreground"
+          className={cn(
+            '!-left-2 !h-4 !w-4 !border-2 !border-background',
+            COLOR_FOR_HANDLE[param.type]
+          )}
           id={param.name}
           position={Position.Left}
           type="target"
