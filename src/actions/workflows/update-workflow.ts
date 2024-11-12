@@ -1,5 +1,7 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import { auth } from '@clerk/nextjs/server';
 
 import { WorkflowStatus } from '@/types/workflow';
@@ -37,7 +39,7 @@ const updateWorkflow = async ({
     return new Error('Workflow is not in draft status');
   }
 
-  const updatedWorkflow = await db.workflow.update({
+  await db.workflow.update({
     where: {
       id: workflowId,
       userId
@@ -47,7 +49,7 @@ const updateWorkflow = async ({
     }
   });
 
-  return updatedWorkflow;
+  revalidatePath('/workflows');
 };
 
 export default updateWorkflow;
