@@ -1,22 +1,16 @@
 @layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply min-h-screen bg-background text-foreground antialiased;
-  }
-}
-
-@layer base {
   :root,
   html,
   body {
     @apply h-full scroll-smooth text-[14px] leading-normal;
   }
 
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased;
+  }
+
   * {
-    @apply m-0 p-0 outline-none;
+    @apply m-0 border-border p-0 outline-none;
   }
 
   *,
@@ -37,14 +31,16 @@
     font-family: inherit;
   }
 
-  ul li,
-  ol li,
   li {
     @apply list-none;
   }
 
   a {
     @apply text-black no-underline;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
   }
 
   ::-webkit-scrollbar {
