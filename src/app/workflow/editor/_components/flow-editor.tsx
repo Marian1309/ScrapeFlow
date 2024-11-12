@@ -23,10 +23,14 @@ import type { TaskType } from '@/types/task';
 
 import createFlowNode from '@/lib/workflow/create-flow-node';
 
+import DeletableEdge from './edges/deletable-edge';
 import NodeComponent from './nodes/node-component';
 
-const NodeTypes = {
+const nodeTypes = {
   FlowScrapeNode: NodeComponent
+};
+const edgeTypes = {
+  default: DeletableEdge
 };
 
 const snapGrid: [number, number] = [25, 25];
@@ -93,10 +97,11 @@ const FlowEditor: FC<Props> = ({ workflow }) => {
   return (
     <div className="h-full w-full">
       <ReactFlow
+        edgeTypes={edgeTypes}
         edges={edges}
         fitView
         fitViewOptions={fitViewOptions}
-        nodeTypes={NodeTypes}
+        nodeTypes={nodeTypes}
         nodes={nodes}
         onConnect={onConnect}
         onDragOver={onDragOver}
