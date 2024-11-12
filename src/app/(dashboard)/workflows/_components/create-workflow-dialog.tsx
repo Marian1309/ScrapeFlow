@@ -27,14 +27,13 @@ type Props = {
 const CreateWorkflowDialog: FC<Props> = ({ triggerText }) => {
   const { isOpen, setIsOpen, form, isPending, handleSubmit } = useCreateWorkflow();
 
+  const handleToggleDialog = () => {
+    form.reset();
+    setIsOpen((prev) => !prev);
+  };
+
   return (
-    <Dialog
-      onOpenChange={() => {
-        form.reset();
-        setIsOpen((prev) => !prev);
-      }}
-      open={isOpen}
-    >
+    <Dialog onOpenChange={handleToggleDialog} open={isOpen}>
       <DialogTrigger asChild>
         <Button>{triggerText ?? 'Create workflow'}</Button>
       </DialogTrigger>

@@ -11,9 +11,9 @@ import CreateWorkflowDialog from './create-workflow-dialog';
 import WorkflowCard from './workflow-card';
 
 const UserWorkflows: FC = async () => {
-  const workflows = (await getWorkflowsForUser()) as Error | Workflow[];
+  const workflows: Workflow[] | Error = await getWorkflowsForUser();
 
-  if (!workflows) {
+  if (workflows instanceof Error) {
     return (
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
@@ -23,7 +23,7 @@ const UserWorkflows: FC = async () => {
     );
   }
 
-  if (Array.isArray(workflows) && workflows.length === 0) {
+  if (workflows.length === 0) {
     return (
       <div className="h-full flex-col gap-4 flex-center">
         <div className="h-20 w-20 rounded-full bg-accent flex-center">
@@ -44,10 +44,9 @@ const UserWorkflows: FC = async () => {
 
   return (
     <div className="grid grid-cols-1 gap-4">
-      {Array.isArray(workflows) &&
-        workflows.map((workflow) => (
-          <WorkflowCard key={workflow.id} workflow={workflow} />
-        ))}
+      {workflows.map((workflow) => (
+        <WorkflowCard key={workflow.id} workflow={workflow} />
+      ))}
     </div>
   );
 };

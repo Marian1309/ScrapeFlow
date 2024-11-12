@@ -20,7 +20,7 @@ const getWorkflowsForUser = async () => {
     }
   });
 
-  return userWorkflows;
+  return userWorkflows ?? [];
 };
 
 export default getWorkflowsForUser;
