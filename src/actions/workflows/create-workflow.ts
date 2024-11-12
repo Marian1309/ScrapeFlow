@@ -6,9 +6,8 @@ import { auth } from '@clerk/nextjs/server';
 
 import { WorkflowStatus } from '@/types/workflow';
 
-import db from '@/db';
-
 import waitFor from '@/lib/helper/wait-for';
+import db from '@/lib/prisma';
 
 import type { CreateWorkflowSchema } from '@/schema/workflow';
 import { createWorkflowSchema } from '@/schema/workflow';

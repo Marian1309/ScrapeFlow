@@ -50,7 +50,7 @@ const shadcnUIColors = {
 const config = {
   darkMode: ['class'],
   content: {
-    files: ['./src/{app,components}/**/*.tsx']
+    files: ['./src/{app,components,lib}/**/*.tsx']
   },
   prefix: '',
   theme: {

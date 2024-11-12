@@ -2,7 +2,7 @@
 
 import { auth } from '@clerk/nextjs/server';
 
-import db from '@/db';
+import db from '@/lib/prisma';
 
 const getWorkflowsForUser = async () => {
   const { userId } = await auth();

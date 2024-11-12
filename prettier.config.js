@@ -20,8 +20,7 @@ const prettierConfig = {
 
     '^@/types',
 
-    '^@/db',
-    '^@/actions/(.*)$',
+    '^(actions/(.*)$)|^(actions$)',
 
     '^@/data/(.*)$',
     '^@/lib/(.*)$',
