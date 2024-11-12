@@ -3,12 +3,14 @@
 import { redirect } from 'next/navigation';
 
 import { auth } from '@clerk/nextjs/server';
+import type { Edge } from '@xyflow/react';
 
+import type { AppNode } from '@/types/app-node';
+import { TaskType } from '@/types/task';
 import { WorkflowStatus } from '@/types/workflow';
 
-import db from '@/db';
-
-import waitFor from '@/lib/helper/wait-for';
+import db from '@/lib/prisma';
+import createFlowNode from '@/lib/workflow/create-flow-node';
 
 import type { CreateWorkflowSchema } from '@/schema/workflow';
 import { createWorkflowSchema } from '@/schema/workflow';
@@ -26,13 +28,18 @@ const createWorkflow = async (form: CreateWorkflowSchema) => {
     return new Error('Unauthorized');
   }
 
-  await waitFor(1000); // REMOVE
+  const initialFlow: { nodes: AppNode[]; edges: Edge[] } = {
+    nodes: [],
+    edges: []
+  };
+
+  initialFlow.nodes.push(createFlowNode(TaskType.LAUNCH_BROWSER));
 
   const createdWorkflow = await db.workflow.create({
     data: {
       userId,
       status: WorkflowStatus.DRAFT,
-      definition: 'TODO',
+      definition: JSON.stringify(initialFlow),
       ...data
     }
   });
@@ -40,8 +47,7 @@ const createWorkflow = async (form: CreateWorkflowSchema) => {
   if (!createdWorkflow) {
     return new Error('Failed to create workflow');
   }
-
-  redirect(`/workflows/editor/${createdWorkflow.id}`);
+  redirect(`/workflow/editor/${createdWorkflow.id}`);
 };
 
 export default createWorkflow;

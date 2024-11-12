@@ -6,7 +6,7 @@ export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const Input = React.memo(
   React.forwardRef<HTMLInputElement, InputProps>(
-    ({ className = '', type = 'text', ...props }, ref) => {
+    ({ className = '', type = 'text', value = '', ...props }, ref) => {
       return (
         <input
           className={cn(
@@ -15,6 +15,7 @@ const Input = React.memo(
           )}
           ref={ref}
           type={type}
+          value={value}
           {...props}
         />
       );

@@ -1,1 +1,2 @@
 - optimize favicon image size
+- add .drag-handle

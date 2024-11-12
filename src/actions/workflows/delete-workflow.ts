@@ -4,9 +4,8 @@ import { revalidatePath } from 'next/cache';
 
 import { auth } from '@clerk/nextjs/server';
 
-import db from '@/db';
-
 import waitFor from '@/lib/helper/wait-for';
+import db from '@/lib/prisma';
 
 const deleteWorkflow = async (workflowId: string) => {
   const { userId } = await auth();
