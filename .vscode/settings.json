@@ -96,7 +96,7 @@
   "workbench.productIconTheme": "Default",
   "window.commandCenter": false,
   "editor.inlineSuggest.suppressSuggestions": true,
-  "editor.fontSize": 14,
+  "editor.fontSize": 13,
   "workbench.statusBar.visible": true,
   "workbench.layoutControl.type": "menu",
   "explorer.fileNesting.enabled": true,

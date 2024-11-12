@@ -28,6 +28,11 @@ const useCreateWorkflow = () => {
     }
   });
 
+  const handleToggleDialog = () => {
+    form.reset();
+    setIsOpen((prev) => !prev);
+  };
+
   const handleSubmit = useCallback(
     (values: CreateWorkflowSchema) => {
       toast.loading('Creating workflow...', { id: 'create-workflow' });
@@ -38,10 +43,10 @@ const useCreateWorkflow = () => {
 
   return {
     isOpen,
-    setIsOpen,
     form,
     isPending,
-    handleSubmit
+    handleSubmit,
+    handleToggleDialog
   };
 };
 

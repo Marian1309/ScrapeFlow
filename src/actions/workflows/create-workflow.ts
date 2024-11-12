@@ -8,7 +8,7 @@ import { WorkflowStatus } from '@/types/workflow';
 
 import db from '@/db';
 
-import { waitFor } from '@/lib/helper';
+import waitFor from '@/lib/helper/wait-for';
 
 import type { CreateWorkflowSchema } from '@/schema/workflow';
 import { createWorkflowSchema } from '@/schema/workflow';

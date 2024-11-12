@@ -57,12 +57,6 @@ const config = {
     container: {
       center: true,
       screens: {
-        nano: '320px',
-        xs: '480px',
-        sm: '640px',
-        md: '768px',
-        lg: '960px',
-        xl: '1200px',
         '2xl': '1560px'
       }
     },
@@ -110,6 +104,11 @@ const config = {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
+        },
+        '.flex-between': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
         }
       });
     })

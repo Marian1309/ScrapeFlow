@@ -6,7 +6,7 @@ import { auth } from '@clerk/nextjs/server';
 
 import db from '@/db';
 
-import { waitFor } from '@/lib/helper';
+import waitFor from '@/lib/helper/wait-for';
 
 const deleteWorkflow = async (workflowId: string) => {
   const { userId } = await auth();
