@@ -15,9 +15,10 @@ import StringParam from './param/string-param';
 type Props = {
   nodeId: string;
   param: TaskParam;
+  disabled: boolean;
 };
 
-const NodeParamField: FC<Props> = ({ nodeId, param }) => {
+const NodeParamField: FC<Props> = ({ nodeId, param, disabled }) => {
   const { updateNodeData, getNode } = useReactFlow();
 
   const node = getNode(nodeId) as AppNode;
@@ -38,7 +39,14 @@ const NodeParamField: FC<Props> = ({ nodeId, param }) => {
 
   switch (param.type) {
     case TaskParamType.STRING:
-      return <StringParam onChange={updateNodeParamValue} param={param} value={value} />;
+      return (
+        <StringParam
+          disabled={disabled}
+          onChange={updateNodeParamValue}
+          param={param}
+          value={value}
+        />
+      );
     case TaskParamType.BROWSER_INSTANCE:
       return <BrowserInstanceParam param={param} />;
     default:

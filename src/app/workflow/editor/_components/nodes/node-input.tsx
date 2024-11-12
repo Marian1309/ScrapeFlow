@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Handle, Position } from '@xyflow/react';
+import { Handle, Position, useEdges } from '@xyflow/react';
 
 import type { TaskParam } from '@/types/task';
 
@@ -15,9 +15,15 @@ type Props = {
 };
 
 const NodeInput: FC<Props> = ({ nodeId, param }) => {
+  const edges = useEdges();
+
+  const isConnected = edges.some(
+    (edge) => edge.target === nodeId && edge.targetHandle === param.name
+  );
+
   return (
     <div className="relative flex w-full justify-start bg-secondary p-3">
-      <NodeParamField nodeId={nodeId} param={param} />
+      <NodeParamField disabled={isConnected} nodeId={nodeId} param={param} />
 
       {!param.hideHandle && (
         <Handle

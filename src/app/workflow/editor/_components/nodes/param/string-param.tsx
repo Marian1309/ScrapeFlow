@@ -1,23 +1,31 @@
 'use client';
 
 import type { FC } from 'react';
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
 import type { TaskParam } from '@/types/task';
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 
 type Props = {
   param: TaskParam;
   value: string;
   onChange: (newValue: string) => void;
+  disabled: boolean;
 };
 
-const StringParam: FC<Props> = ({ param, value, onChange }) => {
+const StringParam: FC<Props> = ({ param, value, onChange, disabled }) => {
   const [internalValue, setInternalValue] = useState<string>(value);
 
+  useEffect(() => {
+    setInternalValue(value);
+  }, [value]);
+
   const id = useId();
+
+  const Component = param.variant === 'textarea' ? Textarea : Input;
 
   return (
     <div className="w-full space-y-1 p-1">
@@ -26,8 +34,9 @@ const StringParam: FC<Props> = ({ param, value, onChange }) => {
         {param.required && <span className="text-red-400">*</span>}
       </Label>
 
-      <Input
+      <Component
         className="text-xs"
+        disabled={disabled}
         id={id}
         onBlur={(e) => onChange(e.target.value)}
         onChange={(e) => setInternalValue(e.target.value)}

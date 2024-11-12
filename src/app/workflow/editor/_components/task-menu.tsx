@@ -20,8 +20,9 @@ const TaskMenu = () => {
       <Accordion className="w-full" defaultValue={['data-extraction']} type="multiple">
         <AccordionItem value="data-extraction">
           <AccordionTrigger>Data Extraction</AccordionTrigger>
-          <AccordionContent className="flex flex-col">
+          <AccordionContent className="flex flex-col gap-1">
             <TaskMenuBtn taskType={TaskType.PAGE_TO_HTML} />
+            <TaskMenuBtn taskType={TaskType.EXTRACT_TEXT_FROM_ELEMENT} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
