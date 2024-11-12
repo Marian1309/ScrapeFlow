@@ -1,6 +1,7 @@
 'use client';
 
-import { type FC, useId } from 'react';
+import type { FC } from 'react';
+import { useId, useState } from 'react';
 
 import type { TaskParam } from '@/types/task';
 
@@ -9,9 +10,13 @@ import { Label } from '@/components/ui/label';
 
 type Props = {
   param: TaskParam;
+  value: string;
+  onChange: (newValue: string) => void;
 };
 
-const StringParam: FC<Props> = ({ param }) => {
+const StringParam: FC<Props> = ({ param, value, onChange }) => {
+  const [internalValue, setInternalValue] = useState<string>(value);
+
   const id = useId();
 
   return (
@@ -21,7 +26,14 @@ const StringParam: FC<Props> = ({ param }) => {
         {param.required && <span className="text-red-400">*</span>}
       </Label>
 
-      <Input id={id} />
+      <Input
+        className="text-xs"
+        id={id}
+        onBlur={(e) => onChange(e.target.value)}
+        onChange={(e) => setInternalValue(e.target.value)}
+        placeholder="Enter value"
+        value={internalValue}
+      />
       {param.helperText && (
         <p className="px-2 text-xs text-muted-foreground">{param.helperText}</p>
       )}

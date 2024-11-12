@@ -21,7 +21,7 @@ const NodeComponent = memo((props: NodeProps) => {
 
       <div className="flex flex-col gap-2 divide-cyan-50">
         {task.inputs.map((input) => (
-          <NodeInput key={input.name} param={input as TaskParam} />
+          <NodeInput key={input.name} nodeId={props.id} param={input as TaskParam} />
         ))}
       </div>
     </NodeCard>

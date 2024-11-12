@@ -7,13 +7,14 @@ import type { TaskParam } from '@/types/task';
 import NodeParamField from './node-param-field';
 
 type Props = {
+  nodeId: string;
   param: TaskParam;
 };
 
-const NodeInput: FC<Props> = ({ param }) => {
+const NodeInput: FC<Props> = ({ nodeId, param }) => {
   return (
     <div className="relative flex w-full justify-start bg-secondary p-3">
-      <NodeParamField param={param} />
+      <NodeParamField nodeId={nodeId} param={param} />
 
       {!param.hideHandle && (
         <Handle
