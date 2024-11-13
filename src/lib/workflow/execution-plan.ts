@@ -1,5 +1,4 @@
 import type { Edge } from '@xyflow/react';
-import { getIncomers } from '@xyflow/react';
 
 import type { AppNode, AppNodeMissingInputs } from '@/types/app-node';
 import type { WorkflowExecutionPlan, WorkflowExecutionPlanPhase } from '@/types/workflow';
@@ -132,6 +131,22 @@ const getInvalidInputs = (node: AppNode, edges: Edge[], planned: Set<string>) =>
   }
 
   return invalidInputs;
+};
+
+const getIncomers = (node: AppNode, nodes: AppNode[], edges: Edge[]) => {
+  if (!node.id) {
+    return [];
+  }
+
+  const incomersIds = new Set();
+
+  edges.forEach((edge) => {
+    if (edge.target === node.id) {
+      incomersIds.add(edge.source);
+    }
+  });
+
+  return nodes.filter((node) => incomersIds.has(node.id));
 };
 
 export default flowToExecutionPlan;

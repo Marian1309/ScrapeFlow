@@ -1,0 +1,15 @@
+model WorkflowExecution {
+  id      String @id @default(uuid())
+  userId  String
+  trigger String
+  status  String
+
+  workflowId String
+  workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  phases ExecutionPhase[]
+
+  createdAt   DateTime  @default(now())
+  startedAt   DateTime?
+  completedAt DateTime?
+}

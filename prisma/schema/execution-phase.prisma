@@ -1,0 +1,16 @@
+model ExecutionPhase {
+  id          String    @id @default(uuid())
+  userId      String
+  status      String
+  number      Int
+  node        String
+  startedAt   DateTime?
+  completedAt DateTime?
+  inputs      String?
+  outputs     String?
+
+  creditsCost Int?
+
+  workflowExecutionId String
+  workflowExecution   WorkflowExecution @relation(fields: [workflowExecutionId], references: [id], onDelete: Cascade)
+}

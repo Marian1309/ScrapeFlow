@@ -24,7 +24,7 @@
     "shadcn:all": "bunx --bun shadcn@latest add --all",
     "db:pull": "prisma db pull",
     "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev --name",
+    "db:migrate": "prisma migrate dev",
     "db:gen": "prisma generate",
     "db:studio": "prisma studio"
   },
