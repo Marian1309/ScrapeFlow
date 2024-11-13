@@ -12,3 +12,8 @@ export type AppNodeData = {
 
   [key: string]: any;
 };
+
+export type AppNodeMissingInputs = {
+  nodeId: string;
+  inputs: string[];
+};
