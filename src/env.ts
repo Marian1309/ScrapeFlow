@@ -7,7 +7,10 @@ const env = createEnv({
     DATABASE_URL: z.string().url()
   },
   client: {},
-  experimental__runtimeEnv: process.env,
+  runtimeEnv: {
+    NODE_ENV: process.env.NODE_ENV,
+    DATABASE_URL: process.env.DATABASE_URL
+  },
   emptyStringAsUndefined: true
 });
 

@@ -5,9 +5,10 @@ import type { FC } from 'react';
 import type { Workflow } from '@prisma/client';
 import { ReactFlowProvider } from '@xyflow/react';
 
+import { Topbar } from '@/components/blocks';
+
 import FlowEditor from './flow-editor';
 import TaskMenu from './task-menu';
-import Topbar from './topbar/topbar';
 
 type Props = {
   workflow: Workflow;

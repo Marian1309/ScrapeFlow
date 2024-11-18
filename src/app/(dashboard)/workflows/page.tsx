@@ -2,13 +2,17 @@ import { Suspense } from 'react';
 
 import type { NextPage } from 'next';
 
+import { auth } from '@clerk/nextjs/server';
+
 import {
   CreateWorkflowDialog,
   UserWorkflows,
   UserWorkflowsSkeleton
 } from './_components';
 
-const WorkflowsPage: NextPage = () => {
+const WorkflowsPage: NextPage = async () => {
+  const { userId } = await auth();
+
   return (
     <div className="flex h-full flex-1 flex-col px-4">
       <div className="flex justify-between">
@@ -22,7 +26,7 @@ const WorkflowsPage: NextPage = () => {
 
       <div className="h-full py-6">
         <Suspense fallback={<UserWorkflowsSkeleton />}>
-          <UserWorkflows />
+          <UserWorkflows userId={userId as string} />
         </Suspense>
       </div>
     </div>

@@ -10,19 +10,21 @@ import { Button } from '@/components/ui/button';
 
 import { TooltipWrapper } from '@/components/blocks';
 
+import ExecuteBtn from './execute-btn';
 import SaveBtn from './save-btn';
 
 type Props = {
   title: string;
   subtitle?: string;
   workflowId: string;
+  hideButtons?: boolean;
 };
 
-const Topbar: FC<Props> = ({ subtitle, title, workflowId }) => {
+const Topbar: FC<Props> = ({ subtitle, title, workflowId, hideButtons = false }) => {
   const router = useRouter();
 
   return (
-    <header className="sticky top-0 z-10 flex h-[60px] w-full border-separate justify-between border-b-2 bg-background p-2">
+    <header className="sticky top-0 z-10 h-[60px] w-full border-separate border-b-2 bg-background p-2 flex-between">
       <div className="flex flex-1 items-center gap-1">
         <TooltipWrapper content="Back">
           <Button onClick={() => router.back()} variant="ghost">
@@ -41,7 +43,12 @@ const Topbar: FC<Props> = ({ subtitle, title, workflowId }) => {
       </div>
 
       <div className="flex flex-1 justify-end gap-1">
-        <SaveBtn workflowId={workflowId} />
+        {!hideButtons && (
+          <>
+            <ExecuteBtn workflowId={workflowId} />
+            <SaveBtn workflowId={workflowId} />
+          </>
+        )}
       </div>
     </header>
   );

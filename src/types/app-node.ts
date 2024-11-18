@@ -9,6 +9,12 @@ export type AppNode = Node & {
 export type AppNodeData = {
   type: TaskType;
   inputs: Record<string, string>;
+  name: string;
 
   [key: string]: any;
+};
+
+export type AppNodeMissingInputs = {
+  nodeId: string;
+  inputs: string[];
 };
