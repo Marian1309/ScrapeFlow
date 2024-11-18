@@ -11,6 +11,7 @@ import type { LogCollector } from '@/types/log';
 import { TaskParamType } from '@/types/task';
 import { ExecutionPhaseStatus, WorkflowExecutionStatus } from '@/types/workflow';
 
+import waitFor from '../helper/wait-for';
 import createLogCollector from '../log';
 import db from '../prisma';
 
@@ -131,6 +132,8 @@ const executeWorkflowPhase = async (
   environment: Environment,
   edges: Edge[]
 ) => {
+  await waitFor(1000); // REMOVE
+
   const logCollector: LogCollector = createLogCollector();
 
   const startedAt = new Date();
@@ -150,7 +153,7 @@ const executeWorkflowPhase = async (
 
   const creditsRequired = TaskRegistry[node.data.type].credits || 0;
 
-  const success = await executePhase(phase, node, environment, logCollector);
+  const success = await executePhase(node, environment, logCollector);
 
   const outputs = environment.phases[node.id].outputs;
 
@@ -180,7 +183,7 @@ const finalizePhase = async (
           data: logCollector.getAll().map((log) => ({
             message: log.message,
             logLevel: log.level,
-            timestamp: log.timestamp
+            timeStamp: log.timestamp
           }))
         }
       }
@@ -189,7 +192,6 @@ const finalizePhase = async (
 };
 
 const executePhase = async (
-  phase: ExecutionPhase,
   node: AppNode,
   environment: Environment,
   logCollector: LogCollector
