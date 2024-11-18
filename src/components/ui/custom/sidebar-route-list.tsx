@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import SIDEBAR_ROUTES from '@/data/sidebar-routes';
+import SIDEBAR_ROUTES from '@/constants/sidebar-routes';
 
 import { buttonVariants } from '../button';
 

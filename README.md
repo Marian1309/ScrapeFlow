@@ -1,4 +1,4 @@
-# [Project Name](http://localhost:3000)
+# [ScrapeFlow](https://scrape-flow-marian1309.vercel.app)
 
 > **Warning** This project is still in development and is not ready for production use.
 
@@ -13,10 +13,14 @@ system.
 - **TypeScript** [TypeScript](https://www.typescriptlang.org)
 - **Framework:** [Next.js](https://nextjs.org)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
+- **Database:** [PostgreSQL](https://www.postgresql.org)
 - **UI Components:** [Shadcn UI](https://ui.shadcn.com)
 - **Statemanagement:** [Zustand](https://zustand-demo.pmnd.rs),
   [React Query](https://tanstack.com/query/latest)
 - **ORM:** [Prisma](https://www.prisma.io)
+- **Flow:** [React Flow](https://reactflow.dev)
+- **Auth:** [Clerk](https://clerk.com)
+- **Supabase:** [Supabase](https://supabase.com)
 
 ## Running Locally
 
@@ -35,7 +39,7 @@ npm install -g rimraf
 ### 3. Clone the repository
 
 ```bash
-git clone https://github.com/Marian1309/Next.js
+git clone https://github.com/Marian1309/ScrapeFlow
 ```
 
 ### 4. Install dependencies

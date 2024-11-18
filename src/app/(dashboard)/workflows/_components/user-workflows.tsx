@@ -10,9 +10,7 @@ import { getWorkflowsForUser } from '@/actions/workflows';
 import CreateWorkflowDialog from './create-workflow-dialog';
 import WorkflowCard from './workflow-card';
 
-type Props = {
-  userId: string;
-};
+type Props = { userId: string };
 
 const UserWorkflows: FC<Props> = async ({ userId }) => {
   if (!userId) {

@@ -16,9 +16,7 @@ import { Card, CardContent } from '@/components/ui/card';
 
 import WorkflowActions from './workflow-actions';
 
-type Props = {
-  workflow: Workflow;
-};
+type Props = { workflow: Workflow };
 
 const statusColors = {
   [WorkflowStatus.DRAFT]: 'bg-yellow-400 text-yellow-600',

@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
@@ -18,7 +18,7 @@ import type { ExecutionPhaseStatus } from '@/types/workflow';
 import { WorkflowExecutionStatus } from '@/types/workflow';
 
 import { datesToDurationString } from '@/lib/helper/dates';
-import { getPhasesTotalCost } from '@/lib/helper/phases';
+import getPhasesTotalCost from '@/lib/helper/phases';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -36,9 +36,7 @@ import PhaseStatusBadge from './phase-status-badge';
 
 type ExecutionData = Awaited<ReturnType<typeof getWorkflowExecutionWithPhases>>;
 
-type Props = {
-  initialData: ExecutionData;
-};
+type Props = { initialData: ExecutionData };
 
 const ExecutionViewer: FC<Props> = ({ initialData }) => {
   const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
@@ -61,12 +59,23 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
 
   const isRunning = data?.status === WorkflowExecutionStatus.RUNNING;
 
-  const duration =
-    data?.startedAt && data?.completedAt
+  const duration = useMemo(() => {
+    return data?.startedAt && data?.completedAt
       ? datesToDurationString(new Date(data.startedAt), new Date(data.completedAt))
       : null;
+  }, [data?.startedAt, data?.completedAt]);
 
-  const creditsConsumed = getPhasesTotalCost(data?.phases || []);
+  const creditsConsumed = useMemo(() => {
+    return getPhasesTotalCost(data?.phases || []);
+  }, [data?.phases]);
+
+  const handlePhaseClick = useCallback(
+    (phaseId: string) => {
+      if (isRunning) return;
+      setSelectedPhase(phaseId);
+    },
+    [isRunning]
+  );
 
   useEffect(() => {
     const phases = data?.phases || [];
@@ -135,11 +144,7 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
             <Button
               className="w-full justify-between"
               key={phase.id}
-              onClick={() => {
-                if (isRunning) return;
-
-                setSelectedPhase(phase.id);
-              }}
+              onClick={() => handlePhaseClick(phase.id)}
               variant={selectedPhase === phase.id ? 'secondary' : 'ghost'}
             >
               <div className="flex items-center gap-2">

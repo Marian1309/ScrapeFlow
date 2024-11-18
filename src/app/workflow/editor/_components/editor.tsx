@@ -10,9 +10,7 @@ import { Topbar } from '@/components/blocks';
 import FlowEditor from './flow-editor';
 import TaskMenu from './task-menu';
 
-type Props = {
-  workflow: Workflow;
-};
+type Props = { workflow: Workflow };
 
 const Editor: FC<Props> = ({ workflow }) => {
   return (

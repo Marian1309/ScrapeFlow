@@ -21,9 +21,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
-type Props = {
-  triggerText?: string;
-};
+type Props = { triggerText?: string };
 
 const CreateWorkflowDialog: FC<Props> = ({ triggerText }) => {
   const { isOpen, form, isPending, handleSubmit, handleToggleDialog } =

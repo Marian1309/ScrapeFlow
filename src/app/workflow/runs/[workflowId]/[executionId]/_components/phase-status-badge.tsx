@@ -9,9 +9,7 @@ import {
 
 import { ExecutionPhaseStatus } from '@/types/workflow';
 
-type Props = {
-  status: ExecutionPhaseStatus;
-};
+type Props = { status: ExecutionPhaseStatus };
 
 const PhaseStatusBadge: FC<Props> = ({ status }) => {
   switch (status) {

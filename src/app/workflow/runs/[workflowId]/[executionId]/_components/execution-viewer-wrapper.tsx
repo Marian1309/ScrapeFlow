@@ -1,8 +1,12 @@
+import type { FC } from 'react';
+
 import { getWorkflowExecutionWithPhases } from '@/actions/workflows';
 
 import ExecutionViewer from './execution-viewer';
 
-const ExecutionViewerWrapper = async ({ executionId }: { executionId: string }) => {
+type Props = { executionId: string };
+
+const ExecutionViewerWrapper: FC<Props> = async ({ executionId }) => {
   const workflowExecution = await getWorkflowExecutionWithPhases(executionId);
 
   if (!workflowExecution) {

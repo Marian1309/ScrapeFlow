@@ -22,9 +22,7 @@ import {
   TableRow
 } from '@/components/ui/table';
 
-type Props = {
-  logs: ExecutionLog[];
-};
+type Props = { logs: ExecutionLog[] };
 
 const LogViewer: FC<Props> = ({ logs }) => {
   if (!logs || logs.length === 0) return null;

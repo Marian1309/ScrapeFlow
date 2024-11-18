@@ -24,6 +24,7 @@ const DeletableEdge: FC<EdgeProps> = (props) => {
   return (
     <>
       <BaseEdge markerEnd={props.markerEnd} path={edgePath} style={props.style} />
+
       <EdgeLabelRenderer>
         <div
           style={{

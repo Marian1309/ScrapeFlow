@@ -4,7 +4,7 @@ import { Loader2Icon } from 'lucide-react';
 
 import { Topbar } from '@/components/blocks';
 
-import ExecutionViewerWrapper from './_components/execution-viewer-wrapper';
+import { ExecutionViewerWrapper } from './_components';
 
 type Props = {
   params: {

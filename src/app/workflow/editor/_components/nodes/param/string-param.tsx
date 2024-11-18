@@ -43,6 +43,7 @@ const StringParam: FC<Props> = ({ param, value, onChange, disabled }) => {
         placeholder="Enter value"
         value={internalValue}
       />
+
       {param.helperText && (
         <p className="px-2 text-xs text-muted-foreground">{param.helperText}</p>
       )}

@@ -27,19 +27,13 @@ import createFlowNode from '@/lib/workflow/create-flow-node';
 import DeletableEdge from './edges/deletable-edge';
 import NodeComponent from './nodes/node-component';
 
-const nodeTypes = {
-  FlowScrapeNode: NodeComponent
-};
-const edgeTypes = {
-  default: DeletableEdge
-};
+const nodeTypes = { FlowScrapeNode: NodeComponent };
+const edgeTypes = { default: DeletableEdge };
 
 const snapGrid: [number, number] = [25, 25];
 const fitViewOptions = { padding: 1 };
 
-type Props = {
-  workflow: Workflow;
-};
+type Props = { workflow: Workflow };
 
 const FlowEditor: FC<Props> = ({ workflow }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
@@ -111,12 +105,10 @@ const FlowEditor: FC<Props> = ({ workflow }) => {
 
   const isValidConnection = useCallback(
     (connection: Edge | Connection) => {
-      // Prevent self-connections
       if (connection.source === connection.target) {
         return false;
       }
 
-      // Find source and target nodes
       const sourceNode = nodes.find((node) => node.id === connection.source);
       const targetNode = nodes.find((node) => node.id === connection.target);
 
@@ -124,7 +116,6 @@ const FlowEditor: FC<Props> = ({ workflow }) => {
         return false;
       }
 
-      // Check if the connection already exists
       const connectionExists = edges.some(
         (edge) =>
           edge.source === connection.source &&
@@ -137,18 +128,15 @@ const FlowEditor: FC<Props> = ({ workflow }) => {
         return false;
       }
 
-      // Prevent connections between incompatible types
       const isExtractTextNode = targetNode.type === 'ExtractTextNode';
       const isLaunchBrowserNode = sourceNode.type === 'LaunchBrowserNode';
 
       if (isExtractTextNode && isLaunchBrowserNode) {
-        // If the target is Extract Text node and specifically its HTML input
         if (connection.targetHandle === 'html') {
           return false;
         }
       }
 
-      // Check if the target node already has an input for this handle
       if (connection.targetHandle) {
         const existingInput = edges.find(
           (edge) =>
@@ -160,7 +148,6 @@ const FlowEditor: FC<Props> = ({ workflow }) => {
         }
       }
 
-      // Check for circular dependencies
       const wouldCreateCycle = (
         source: string,
         target: string,

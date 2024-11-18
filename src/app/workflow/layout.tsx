@@ -5,9 +5,7 @@ import { Separator } from '@/components/ui/separator';
 
 import { ThemeToggle } from '@/components/blocks';
 
-type Props = {
-  children: ReactNode;
-};
+type Props = { children: ReactNode };
 
 const WorkflowLayout: FC<Props> = ({ children }) => {
   return (

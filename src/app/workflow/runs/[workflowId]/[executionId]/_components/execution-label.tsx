@@ -10,6 +10,7 @@ type Props = {
 
 const ExecutionLabel: FC<Props> = ({ label, value, icon }) => {
   const Icon = icon;
+
   return (
     <div className="flex-between py-2 px-4 text-sm">
       <div className="text-muted-foreground flex items-center gap-2">

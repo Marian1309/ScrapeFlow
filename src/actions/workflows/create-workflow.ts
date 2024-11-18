@@ -25,7 +25,7 @@ const createWorkflow = async (form: CreateWorkflowSchema) => {
   const { userId } = await auth();
 
   if (!userId) {
-    return new Error('Unauthorized');
+    throw new Error('Unauthorized');
   }
 
   const existingWorkflow = await db.workflow.findFirst({
