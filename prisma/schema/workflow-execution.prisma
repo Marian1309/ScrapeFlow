@@ -4,6 +4,7 @@ model WorkflowExecution {
   trigger         String
   status          String
   creditsConsumed Int    @default(0)
+  definition      String @default("{}")
 
   workflowId String
   workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)

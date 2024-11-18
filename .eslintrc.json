@@ -50,7 +50,7 @@
     "prefer-template": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
     "react/jsx-sort-props": "warn",
-    "no-console": "warn",
+    "no-console": "off",
     "object-curly-newline": "warn",
     "react/button-has-type": "warn",
     "n/no-process-env": "warn",
