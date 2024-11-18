@@ -10,13 +10,13 @@ const extractTextFromElementExecutor = async (
   try {
     const selector = environment.getInput('Selector');
     if (!selector) {
-      console.error('No selector provided');
+      environment.log.error('No selector provided');
       return false;
     }
 
     const html = environment.getInput('HTML');
     if (!html) {
-      console.error('No HTML provided');
+      environment.log.error('No HTML provided');
       return false;
     }
 
@@ -25,21 +25,22 @@ const extractTextFromElementExecutor = async (
     const element = $(selector);
 
     if (element.length === 0) {
-      console.error('Element not found', selector);
+      environment.log.error('Element not found');
       return false;
     }
 
     const extractedText = $.text(element);
-    console.log('@@Extracted text', extractedText);
     if (!extractedText) {
-      console.error('No text found in element', selector);
+      environment.log.error('No text found in element');
       return false;
     }
 
+    console.log('Extracted text:', extractedText);
+
     environment.setOutput('Extracted text', extractedText);
     return true;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    environment.log.error(error.message);
     return false;
   }
 };

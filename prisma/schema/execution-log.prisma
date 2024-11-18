@@ -1,0 +1,9 @@
+model ExecutionLog {
+  id        String   @id @default(uuid())
+  logLevel  String
+  message   String
+  timeStamp DateTime @default(now())
+
+  executionPhaseId String?
+  executionPhase   ExecutionPhase? @relation(fields: [executionPhaseId], references: [id])
+}

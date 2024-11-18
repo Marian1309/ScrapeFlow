@@ -7,9 +7,11 @@ import 'server-only';
 
 import type { AppNode } from '@/types/app-node';
 import type { Environment, ExecutionEnvironment } from '@/types/executor';
+import type { LogCollector } from '@/types/log';
 import { TaskParamType } from '@/types/task';
 import { ExecutionPhaseStatus, WorkflowExecutionStatus } from '@/types/workflow';
 
+import createLogCollector from '../log';
 import db from '../prisma';
 
 import ExecutorRegistry from './executor/registry';
@@ -129,6 +131,8 @@ const executeWorkflowPhase = async (
   environment: Environment,
   edges: Edge[]
 ) => {
+  const logCollector: LogCollector = createLogCollector();
+
   const startedAt = new Date();
 
   const node = JSON.parse(phase.node) as AppNode;
@@ -146,11 +150,11 @@ const executeWorkflowPhase = async (
 
   const creditsRequired = TaskRegistry[node.data.type].credits || 0;
 
-  const success = await executePhase(phase, node, environment);
+  const success = await executePhase(phase, node, environment, logCollector);
 
   const outputs = environment.phases[node.id].outputs;
 
-  await finalizePhase(phase.id, success, outputs);
+  await finalizePhase(phase.id, success, outputs, logCollector);
 
   return { success };
 };
@@ -158,7 +162,8 @@ const executeWorkflowPhase = async (
 const finalizePhase = async (
   phaseId: string,
   success: boolean,
-  outputs: Record<string, string>
+  outputs: Record<string, string>,
+  logCollector: LogCollector
 ) => {
   const finalStatus = success
     ? ExecutionPhaseStatus.COMPLETED
@@ -169,7 +174,16 @@ const finalizePhase = async (
     data: {
       status: finalStatus,
       completedAt: new Date(),
-      outputs: JSON.stringify(outputs)
+      outputs: JSON.stringify(outputs),
+      logs: {
+        createMany: {
+          data: logCollector.getAll().map((log) => ({
+            message: log.message,
+            logLevel: log.level,
+            timestamp: log.timestamp
+          }))
+        }
+      }
     }
   });
 };
@@ -177,9 +191,16 @@ const finalizePhase = async (
 const executePhase = async (
   phase: ExecutionPhase,
   node: AppNode,
-  environment: Environment
+  environment: Environment,
+  logCollector: LogCollector
 ): Promise<any> => {
-  const runFn = ExecutorRegistry[node.data.type];
+  const taskType = node.data.type;
+
+  if (!(taskType in TaskRegistry)) {
+    logCollector.error(`Невідомий тип завдання: ${taskType}`);
+    return false;
+  }
+  const runFn = ExecutorRegistry[taskType];
 
   if (!runFn) {
     throw new Error(`No executor found for task type: ${node.data.type}`);
@@ -187,7 +208,8 @@ const executePhase = async (
 
   const executionEnvironment: ExecutionEnvironment<any> = createExecutionEnvironment(
     node,
-    environment
+    environment,
+    logCollector
   );
 
   return await runFn(executionEnvironment);
@@ -235,7 +257,8 @@ const setupEnvironmentForPhases = (
 
 const createExecutionEnvironment = (
   node: AppNode,
-  environment: Environment
+  environment: Environment,
+  logCollector: LogCollector
 ): ExecutionEnvironment<any> => {
   return {
     getInput: (name: string) => environment.phases[node.id]?.inputs[name],
@@ -249,7 +272,8 @@ const createExecutionEnvironment = (
     getPage: (): Page | undefined => environment.page,
     setPage: (page: Page): void => {
       environment.page = page;
-    }
+    },
+    log: logCollector
   };
 };
 
@@ -257,6 +281,6 @@ const cleanupEnvironment = async (environment: Environment) => {
   if (environment.browser) {
     await environment.browser
       .close()
-      .catch((err) => console.error(`Cannot close browser: `, err));
+      .catch((err) => console.error('Cannot close browser: ', err));
   }
 };
