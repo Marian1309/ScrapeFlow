@@ -17,9 +17,10 @@ type Props = {
   title: string;
   subtitle?: string;
   workflowId: string;
+  hideButtons?: boolean;
 };
 
-const Topbar: FC<Props> = ({ subtitle, title, workflowId }) => {
+const Topbar: FC<Props> = ({ subtitle, title, workflowId, hideButtons = false }) => {
   const router = useRouter();
 
   return (
@@ -42,8 +43,12 @@ const Topbar: FC<Props> = ({ subtitle, title, workflowId }) => {
       </div>
 
       <div className="flex flex-1 justify-end gap-1">
-        <ExecuteBtn workflowId={workflowId} />
-        <SaveBtn workflowId={workflowId} />
+        {!hideButtons && (
+          <>
+            <ExecuteBtn workflowId={workflowId} />
+            <SaveBtn workflowId={workflowId} />
+          </>
+        )}
       </div>
     </header>
   );

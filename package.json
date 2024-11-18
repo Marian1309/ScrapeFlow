@@ -96,6 +96,7 @@
     "react-resizable-panels": "^2.1.6",
     "react-spinners": "^0.14.1",
     "recharts": "^2.13.3",
+    "server-only": "^0.0.1",
     "sharp": "^0.33.5",
     "sonner": "^1.7.0",
     "vaul": "^1.1.1",
