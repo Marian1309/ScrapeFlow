@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC } from 'react';
 
 import {
@@ -14,7 +16,12 @@ const ParameterViewer: FC<{ paramsJSON: string; subTitle: string; title: string 
   subTitle,
   title
 }) => {
-  const params = JSON.parse(paramsJSON);
+  let params = {};
+  try {
+    params = JSON.parse?.(paramsJSON);
+  } catch (error) {
+    console.error('Failed to parse parameters JSON:', error);
+  }
 
   return (
     <Card>

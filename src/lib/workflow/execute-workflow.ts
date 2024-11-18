@@ -11,7 +11,6 @@ import type { LogCollector } from '@/types/log';
 import { TaskParamType } from '@/types/task';
 import { ExecutionPhaseStatus, WorkflowExecutionStatus } from '@/types/workflow';
 
-import waitFor from '../helper/wait-for';
 import createLogCollector from '../log';
 import db from '../prisma';
 
@@ -132,8 +131,6 @@ const executeWorkflowPhase = async (
   environment: Environment,
   edges: Edge[]
 ) => {
-  await waitFor(1000); // REMOVE
-
   const logCollector: LogCollector = createLogCollector();
 
   const startedAt = new Date();
