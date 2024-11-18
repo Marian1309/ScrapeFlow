@@ -1,6 +1,7 @@
 'use client';
 
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import { formatDistanceToNow } from 'date-fns';
@@ -13,6 +14,7 @@ import {
   WorkflowIcon
 } from 'lucide-react';
 
+import type { ExecutionPhaseStatus } from '@/types/workflow';
 import { WorkflowExecutionStatus } from '@/types/workflow';
 
 import { datesToDurationString } from '@/lib/helper/dates';
@@ -30,6 +32,7 @@ import {
 import ExecutionLabel from './execution-label';
 import LogViewer from './log-viewer';
 import ParameterViewer from './parameter-viewer';
+import PhaseStatusBadge from './phase-status-badge';
 
 type ExecutionData = Awaited<ReturnType<typeof getWorkflowExecutionWithPhases>>;
 
@@ -64,6 +67,25 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
       : null;
 
   const creditsConsumed = getPhasesTotalCost(data?.phases || []);
+
+  useEffect(() => {
+    const phases = data?.phases || [];
+
+    if (isRunning) {
+      const phaseToSelect = phases.toSorted((a, b) =>
+        a.startedAt! > b.startedAt! ? -1 : 1
+      )[0];
+
+      setSelectedPhase(phaseToSelect.id);
+      return;
+    }
+
+    const phaseToSelect = phases.toSorted((a, b) =>
+      a.completedAt! > b.completedAt! ? -1 : 1
+    )[0];
+
+    setSelectedPhase(phaseToSelect.id);
+  }, [data?.phases, isRunning]);
 
   return (
     <div className="flex h-full w-full">
@@ -124,7 +146,8 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
                 <Badge variant="outline">{phase.number}</Badge>
                 <p className="font-semibold">{phase.name}</p>
               </div>
-              <p className="text-xs text-muted-foreground">{phase.status}</p>
+
+              <PhaseStatusBadge status={phase.status as ExecutionPhaseStatus} />
             </Button>
           ))}
         </div>
