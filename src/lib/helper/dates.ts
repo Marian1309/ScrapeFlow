@@ -1,8 +1,8 @@
 import { intervalToDuration } from 'date-fns';
 
 export const datesToDurationString = (
-  finishedAt: Date | string,
-  startedAt: Date | string
+  startedAt: Date | string,
+  finishedAt: Date | string
 ) => {
   if (!startedAt || !finishedAt) return null;
 

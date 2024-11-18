@@ -1,8 +1,9 @@
 model WorkflowExecution {
-  id      String @id @default(uuid())
-  userId  String
-  trigger String
-  status  String
+  id              String @id @default(uuid())
+  userId          String
+  trigger         String
+  status          String
+  creditsConsumed Int    @default(0)
 
   workflowId String
   workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
