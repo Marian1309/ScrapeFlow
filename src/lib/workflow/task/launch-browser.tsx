@@ -18,8 +18,8 @@ const launchBrowserTask = {
       helperText: 'eg: https://www.google.com',
       hideHandle: true
     }
-  ],
-  outputs: [{ name: 'Web Page', type: TaskParamType.BROWSER_INSTANCE }]
+  ] as const,
+  outputs: [{ name: 'Web Page', type: TaskParamType.BROWSER_INSTANCE }] as const
 } satisfies WorkflowTask;
 
 export default launchBrowserTask;
