@@ -180,7 +180,7 @@ const finalizePhase = async (
           data: logCollector.getAll().map((log) => ({
             message: log.message,
             logLevel: log.level,
-            timestamp: log.timestamp
+            timeStamp: log.timestamp
           }))
         }
       }

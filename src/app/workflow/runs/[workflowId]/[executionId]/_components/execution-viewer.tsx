@@ -28,6 +28,8 @@ import {
 } from '@/actions/workflows';
 
 import ExecutionLabel from './execution-label';
+import LogViewer from './log-viewer';
+import ParameterViewer from './parameter-viewer';
 
 type ExecutionData = Awaited<ReturnType<typeof getWorkflowExecutionWithPhases>>;
 
@@ -127,6 +129,62 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
           ))}
         </div>
       </aside>
+
+      <div className="flex w-full h-full px-3">
+        {isRunning && (
+          <div className="w-full h-full flex-center flex-col gap-2">
+            <p className="font-bold">Run is in progress, please wait...</p>
+          </div>
+        )}
+
+        {!isRunning && !selectedPhase && (
+          <div className="flex-center flex-col gap-2 w-full h-full">
+            <div className="flex flex-col gap-1 text-center">
+              <p className="font-bold">No phase selected</p>
+              <p className="text-sm text-muted-foreground">
+                Please select a phase to view details
+              </p>
+            </div>
+          </div>
+        )}
+
+        {!isRunning && selectedPhase && phaseDetails.data && (
+          <div className="flex flex-col py-4 container gap-4 overflow-auto">
+            <div className="flex gap-2 items-center">
+              <Badge className="space-x-4" variant="outline">
+                <CoinsIcon className="stroke-muted-foreground" size={18} />
+                <span>Credits</span>
+                <span>TODO</span>
+              </Badge>
+
+              <Badge className="space-x-4" variant="outline">
+                <ClockIcon className="stroke-muted-foreground" size={18} />
+                <span>Duration</span>
+                <span>
+                  {datesToDurationString(
+                    new Date(phaseDetails.data.startedAt!),
+                    new Date(phaseDetails.data.completedAt!)
+                  )}
+                </span>
+              </Badge>
+            </div>
+
+            <ParameterViewer
+              paramsJSON={phaseDetails.data.inputs || ''}
+              subTitle="Inputs"
+              title="Inputs"
+            />
+
+            <ParameterViewer
+              paramsJSON={phaseDetails.data.outputs || ''}
+              subTitle="Outputs"
+              title="Outputs"
+            />
+
+            <LogViewer logs={phaseDetails.data.logs || ''} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
