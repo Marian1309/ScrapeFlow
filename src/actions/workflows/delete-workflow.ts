@@ -10,7 +10,7 @@ const deleteWorkflow = async (workflowId: string) => {
   const { userId } = await auth();
 
   if (!userId) {
-    return new Error('Unauthorized');
+    throw new Error('Unauthorized');
   }
 
   await db.workflow.delete({

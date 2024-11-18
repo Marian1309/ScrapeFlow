@@ -9,13 +9,13 @@ const runWorkflow = async (form: { workflowId: string; flowDefinition?: string }
   const { userId } = await auth();
 
   if (!userId) {
-    return new Error('Unauthorized');
+    throw new Error('Unauthorized');
   }
 
   const { workflowId, flowDefinition } = form;
 
   if (!workflowId) {
-    return new Error('Workflow ID is required');
+    throw new Error('Workflow ID is required');
   }
 
   const workflow = await db.workflow.findUnique({
@@ -26,7 +26,7 @@ const runWorkflow = async (form: { workflowId: string; flowDefinition?: string }
   });
 
   if (!workflow) {
-    return new Error('Workflow not found');
+    throw new Error('Workflow not found');
   }
 
   if (!flowDefinition) {
@@ -38,15 +38,14 @@ const runWorkflow = async (form: { workflowId: string; flowDefinition?: string }
   const result = flowToExecutionPlan(flow.nodes, flow.edges);
 
   if (result.error) {
-    return new Error('Invalid flow definition');
+    throw new Error('Invalid flow definition');
   }
 
   if (!result.executionPlan) {
-    return new Error('Execution plan not found');
+    throw new Error('Execution plan not found');
   }
 
   const executionPlan = result.executionPlan;
-  console.log(executionPlan);
 };
 
 export default runWorkflow;

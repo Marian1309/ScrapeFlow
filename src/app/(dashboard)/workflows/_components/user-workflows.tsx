@@ -3,21 +3,37 @@ import type { FC } from 'react';
 import type { Workflow } from '@prisma/client';
 import { AlertCircle, InboxIcon } from 'lucide-react';
 
-import { getWorkflowsForUser } from '@/actions/workflows';
-
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+
+import { getWorkflowsForUser } from '@/actions/workflows';
 
 import CreateWorkflowDialog from './create-workflow-dialog';
 import WorkflowCard from './workflow-card';
 
-const UserWorkflows: FC = async () => {
+type Props = {
+  userId: string;
+};
+
+const UserWorkflows: FC<Props> = async ({ userId }) => {
+  if (!userId) {
+    return (
+      <Alert variant="destructive">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>
+          If you are logged in, please try refreshing the page.
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
   const workflows: Workflow[] | Error = await getWorkflowsForUser();
 
   if (workflows instanceof Error) {
     return (
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
+        <AlertTitle>Warning</AlertTitle>
         <AlertDescription>Something went wrong. Please try again later.</AlertDescription>
       </Alert>
     );

@@ -8,7 +8,7 @@ const getWorkflowsForUser = async () => {
   const { userId } = await auth();
 
   if (!userId) {
-    return new Error('Unauthorized');
+    throw new Error('Unauthorized');
   }
 
   const userWorkflows = await db.workflow.findMany({

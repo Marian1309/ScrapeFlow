@@ -19,13 +19,24 @@ const createWorkflow = async (form: CreateWorkflowSchema) => {
   const { success, data } = createWorkflowSchema.safeParse(form);
 
   if (!success) {
-    return new Error('Invalid form data');
+    throw new Error('Invalid form data');
   }
 
   const { userId } = await auth();
 
   if (!userId) {
     return new Error('Unauthorized');
+  }
+
+  const existingWorkflow = await db.workflow.findFirst({
+    where: {
+      userId,
+      name: data.name
+    }
+  });
+
+  if (existingWorkflow) {
+    throw new Error('Workflow with this name already exists');
   }
 
   const initialFlow: { nodes: AppNode[]; edges: Edge[] } = {
@@ -45,8 +56,9 @@ const createWorkflow = async (form: CreateWorkflowSchema) => {
   });
 
   if (!createdWorkflow) {
-    return new Error('Failed to create workflow');
+    throw new Error('Failed to create workflow');
   }
+
   redirect(`/workflow/editor/${createdWorkflow.id}`);
 };
 

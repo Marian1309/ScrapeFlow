@@ -5,10 +5,10 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-import { createWorkflow } from '@/actions/workflows';
-
 import type { CreateWorkflowSchema } from '@/schema/workflow';
 import { createWorkflowSchema } from '@/schema/workflow';
+
+import { createWorkflow } from '@/actions/workflows';
 
 const useCreateWorkflow = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -23,8 +23,10 @@ const useCreateWorkflow = () => {
     onSuccess: () => {
       toast.success('Workflow created successfully', { id: 'create-workflow' });
     },
-    onError: () => {
-      toast.error('Failed to create workflow', { id: 'create-workflow' });
+    onError: (error: unknown) => {
+      toast.error(error instanceof Error ? error.message : 'Failed to create workflow', {
+        id: 'create-workflow'
+      });
     }
   });
 

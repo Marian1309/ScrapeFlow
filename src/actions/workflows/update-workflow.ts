@@ -6,7 +6,6 @@ import { auth } from '@clerk/nextjs/server';
 
 import { WorkflowStatus } from '@/types/workflow';
 
-import waitFor from '@/lib/helper/wait-for';
 import db from '@/lib/prisma';
 
 const updateWorkflow = async ({
@@ -19,10 +18,8 @@ const updateWorkflow = async ({
   const { userId } = await auth();
 
   if (!userId) {
-    return new Error('Unauthorized');
+    throw new Error('Unauthorized');
   }
-
-  await waitFor(1000); // REMOVE
 
   const workflow = await db.workflow.findUnique({
     where: {
@@ -32,11 +29,11 @@ const updateWorkflow = async ({
   });
 
   if (!workflow) {
-    return new Error('Workflow not found');
+    throw new Error('Workflow not found');
   }
 
   if (workflow.status !== WorkflowStatus.DRAFT) {
-    return new Error('Workflow is not in draft status');
+    throw new Error('Workflow is not in draft status');
   }
 
   await db.workflow.update({
