@@ -11,6 +11,7 @@ const createFlowNode = (
     dragHandle: '.drag-handle',
     position: position ?? { x: 0, y: 0 },
     data: {
+      name: '',
       type: nodeType,
       inputs: {}
     }
