@@ -4,5 +4,7 @@ export { default as getWorkflowExecutionWithPhases } from './get-workflow-execut
 export { default as getWorkflowExecutions } from './get-workflow-executions';
 export { default as getWorkflowPhaseDetails } from './get-workflow-phase-details';
 export { default as getWorkflowsForUser } from './get-workflows-for-user';
+export { default as publishWorkflow } from './publish-workflow';
 export { default as runWorkflow } from './run-workflow';
+export { default as unpublishWorkflow } from './unpublish-workflow';
 export { default as updateWorkflow } from './update-workflow';
