@@ -102,7 +102,16 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
     <div className="flex h-full w-full">
       <aside className="flex w-[440px] min-w-[440px] max-w-[440px] flex-grow border-separate flex-col overflow-hidden border-r-2">
         <div className="px-2 py-4">
-          <ExecutionLabel icon={CircleDashedIcon} label="Status" value={data!.status} />
+          <ExecutionLabel
+            icon={CircleDashedIcon}
+            label="Status"
+            value={
+              <div className="flex items-center gap-2 font-semibold capitalize">
+                <PhaseStatusBadge status={data?.status as ExecutionPhaseStatus} />
+                <span>{data?.status}</span>
+              </div>
+            }
+          />
 
           <ExecutionLabel
             icon={CalendarIcon}

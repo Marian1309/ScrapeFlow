@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
-import { Logo } from '@/components/ui/custom';
+import { Logo } from '@/components/layout';
 
 type Props = { children: ReactNode };
 

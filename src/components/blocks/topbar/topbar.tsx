@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { TooltipWrapper } from '@/components/blocks';
 
 import ExecuteBtn from './execute-btn';
+import NavigationTabs from './navigation-tabs';
 import SaveBtn from './save-btn';
 
 type Props = {
@@ -41,6 +42,8 @@ const Topbar: FC<Props> = ({ subtitle, title, workflowId, hideButtons = false })
           )}
         </div>
       </div>
+
+      <NavigationTabs workflowId={workflowId} />
 
       <div className="flex flex-1 justify-end gap-1">
         {!hideButtons && (
