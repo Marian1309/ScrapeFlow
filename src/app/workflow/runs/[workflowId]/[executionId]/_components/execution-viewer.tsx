@@ -24,6 +24,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
+import ReactCountupWrapper from '@/components/layout/react-countup-wrapper';
+
 import {
   getWorkflowExecutionWithPhases,
   getWorkflowPhaseDetails
@@ -98,8 +100,8 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
 
   return (
     <div className="flex h-full w-full">
-      <aside className="w-[440px] min-w-[440px] max-w-[440px] border-r-2 border-separate flex flex-grow flex-col overflow-hidden">
-        <div className="py-4 px-2">
+      <aside className="flex w-[440px] min-w-[440px] max-w-[440px] flex-grow border-separate flex-col overflow-hidden border-r-2">
+        <div className="px-2 py-4">
           <ExecutionLabel icon={CircleDashedIcon} label="Status" value={data!.status} />
 
           <ExecutionLabel
@@ -124,13 +126,13 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
           <ExecutionLabel
             icon={CoinsIcon}
             label="Credits consumed"
-            value={creditsConsumed}
+            value={<ReactCountupWrapper value={creditsConsumed} />}
           />
         </div>
 
         <Separator />
 
-        <div className="flex-center py-2 px-4">
+        <div className="px-4 py-2 flex-center">
           <div className="flex items-center gap-y-2 text-accent-foreground">
             <WorkflowIcon className="stroke-muted-foreground/80" size={20} />
             <span className="font-semibold">Phases</span>
@@ -139,7 +141,7 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
 
         <Separator />
 
-        <div className="overflow-auto h-full px-2 py-4">
+        <div className="h-full overflow-auto px-2 py-4">
           {data?.phases.map((phase) => (
             <Button
               className="w-full justify-between"
@@ -158,15 +160,15 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
         </div>
       </aside>
 
-      <div className="flex w-full h-full px-3">
+      <div className="flex h-full w-full px-3">
         {isRunning && (
-          <div className="w-full h-full flex-center flex-col gap-2">
+          <div className="h-full w-full flex-col gap-2 flex-center">
             <p className="font-bold">Run is in progress, please wait...</p>
           </div>
         )}
 
         {!isRunning && !selectedPhase && (
-          <div className="flex-center flex-col gap-2 w-full h-full">
+          <div className="h-full w-full flex-col gap-2 flex-center">
             <div className="flex flex-col gap-1 text-center">
               <p className="font-bold">No phase selected</p>
               <p className="text-sm text-muted-foreground">
@@ -177,12 +179,12 @@ const ExecutionViewer: FC<Props> = ({ initialData }) => {
         )}
 
         {!isRunning && selectedPhase && phaseDetails.data && (
-          <div className="flex flex-col py-4 container gap-4 overflow-auto">
-            <div className="flex gap-2 items-center">
+          <div className="container flex flex-col gap-4 overflow-auto py-4">
+            <div className="flex items-center gap-2">
               <Badge className="space-x-4" variant="outline">
                 <CoinsIcon className="stroke-muted-foreground" size={18} />
                 <span>Credits</span>
-                <span>TODO</span>
+                <span>{phaseDetails.data?.creditsConsumed}</span>
               </Badge>
 
               <Badge className="space-x-4" variant="outline">

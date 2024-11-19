@@ -6,8 +6,9 @@ import { useState } from 'react';
 import { MenuIcon } from 'lucide-react';
 
 import { Button } from './ui/button';
-import { Logo, SidebarRouteList } from './ui/custom';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+
+import { Logo, SidebarRouteList, UserAvailableCreditsBadge } from './layout';
 
 const DesktopSidebar: FC = () => {
   return (
@@ -16,7 +17,9 @@ const DesktopSidebar: FC = () => {
         <Logo />
       </div>
 
-      <div className="p-2">TODO CREDITS</div>
+      <div className="p-2">
+        <UserAvailableCreditsBadge />
+      </div>
 
       <SidebarRouteList />
     </div>
@@ -38,6 +41,8 @@ export const MobileSidebar: FC = () => {
 
           <SheetContent className="w-[400px] space-y-4 sm:w-[540px]" side="left">
             <Logo />
+
+            <UserAvailableCreditsBadge />
 
             <SidebarRouteList onClick={() => setIsOpen((prev) => !prev)} />
           </SheetContent>

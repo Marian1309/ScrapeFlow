@@ -9,7 +9,7 @@ const extractTextFromElementTask = {
   label: 'Extract text from element',
   icon: (props: LucideProps) => <TextIcon {...props} />,
   isEntryPoint: false,
-  credits: 5,
+  credits: 2,
   inputs: [
     {
       name: 'HTML',
