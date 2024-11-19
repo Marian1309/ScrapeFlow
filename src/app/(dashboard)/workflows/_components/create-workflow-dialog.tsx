@@ -7,7 +7,6 @@ import { Layers2Icon, Loader2 } from 'lucide-react';
 import useCreateWorkflow from '@/hooks/use-create-workflow';
 
 import { Button } from '@/components/ui/button';
-import { CustomDialogHeader } from '@/components/ui/custom';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import {
   Form,
@@ -20,6 +19,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+
+import { CustomDialogHeader } from '@/components/layout';
 
 type Props = { triggerText?: string };
 

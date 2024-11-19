@@ -1,9 +1,9 @@
 import type { FC, ReactNode } from 'react';
 
-import { Logo } from '@/components/ui/custom';
 import { Separator } from '@/components/ui/separator';
 
 import { ThemeToggle } from '@/components/blocks';
+import { Logo } from '@/components/layout';
 
 type Props = { children: ReactNode };
 

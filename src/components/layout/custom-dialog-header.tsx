@@ -6,8 +6,8 @@ import type { LucideIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
-import { DialogHeader, DialogTitle } from '../dialog';
-import { Separator } from '../separator';
+import { DialogHeader, DialogTitle } from '../ui/dialog';
+import { Separator } from '../ui/separator';
 
 type Props = {
   title?: string;

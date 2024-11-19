@@ -8,7 +8,7 @@ type Props = {
   loading?: boolean;
 };
 
-const Loading: FC<Props> = ({ loading = true }) => {
+const GlobalLoader: FC<Props> = ({ loading = true }) => {
   return (
     <div className="min-h-screen flex-center">
       <BounceLoader color="hsl(var(--text-accent))" loading={loading} size={40} />
@@ -16,4 +16,4 @@ const Loading: FC<Props> = ({ loading = true }) => {
   );
 };
 
-export default Loading;
+export default GlobalLoader;

@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 
 import SIDEBAR_ROUTES from '@/constants/sidebar-routes';
 
-import { buttonVariants } from '../button';
+import { buttonVariants } from '../ui/button';
 
 type Props = {
   onClick?: () => void;
