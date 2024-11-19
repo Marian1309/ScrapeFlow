@@ -12,16 +12,25 @@ import { TooltipWrapper } from '@/components/blocks';
 
 import ExecuteBtn from './execute-btn';
 import NavigationTabs from './navigation-tabs';
+import PublishBtn from './publish-btn';
 import SaveBtn from './save-btn';
+import UnpublishBtn from './unpublish-btn';
 
 type Props = {
   title: string;
   subtitle?: string;
   workflowId: string;
   hideButtons?: boolean;
+  isPublished?: boolean;
 };
 
-const Topbar: FC<Props> = ({ subtitle, title, workflowId, hideButtons = false }) => {
+const Topbar: FC<Props> = ({
+  subtitle,
+  title,
+  workflowId,
+  hideButtons = false,
+  isPublished = false
+}) => {
   const router = useRouter();
 
   return (
@@ -49,7 +58,13 @@ const Topbar: FC<Props> = ({ subtitle, title, workflowId, hideButtons = false })
         {!hideButtons && (
           <>
             <ExecuteBtn workflowId={workflowId} />
-            <SaveBtn workflowId={workflowId} />
+            {isPublished && <UnpublishBtn workflowId={workflowId} />}
+            {!isPublished && (
+              <>
+                <SaveBtn workflowId={workflowId} />
+                <PublishBtn workflowId={workflowId} />
+              </>
+            )}
           </>
         )}
       </div>

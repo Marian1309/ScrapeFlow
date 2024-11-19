@@ -4,10 +4,12 @@ import { redirect } from 'next/navigation';
 
 import { auth } from '@clerk/nextjs/server';
 
+import type { WorkflowExecutionPlan } from '@/types/workflow';
 import {
   ExecutionPhaseStatus,
   WorkflowExecutionStatus,
-  WorkflowExecutionTrigger
+  WorkflowExecutionTrigger,
+  WorkflowStatus
 } from '@/types/workflow';
 
 import db from '@/lib/prisma';
@@ -39,23 +41,35 @@ const runWorkflow = async (form: { workflowId: string; flowDefinition?: string }
     throw new Error('Workflow not found');
   }
 
-  if (!flowDefinition) {
-    throw new Error('Flow definition is required');
+  let executionPlan: WorkflowExecutionPlan;
+
+  let workflowDefinition = flowDefinition;
+
+  if (workflow.status === WorkflowStatus.PUBLISHED) {
+    if (!workflow.executionPlan) {
+      throw new Error('Execution plan not found');
+    }
+    executionPlan = JSON.parse(workflow.executionPlan!);
+    workflowDefinition = workflow.definition;
+  } else {
+    if (!flowDefinition) {
+      throw new Error('Flow definition is required');
+    }
+
+    const flow = JSON.parse(flowDefinition);
+
+    const result = flowToExecutionPlan(flow.nodes, flow.edges);
+
+    if (result.error) {
+      throw new Error('Invalid flow definition');
+    }
+
+    if (!result.executionPlan) {
+      throw new Error('Execution plan not found');
+    }
+
+    executionPlan = result.executionPlan;
   }
-
-  const flow = JSON.parse(flowDefinition);
-
-  const result = flowToExecutionPlan(flow.nodes, flow.edges);
-
-  if (result.error) {
-    throw new Error('Invalid flow definition');
-  }
-
-  if (!result.executionPlan) {
-    throw new Error('Execution plan not found');
-  }
-
-  const executionPlan = result.executionPlan;
 
   const execution = await db.workflowExecution.create({
     data: {
@@ -64,7 +78,7 @@ const runWorkflow = async (form: { workflowId: string; flowDefinition?: string }
       status: WorkflowExecutionStatus.PENDING,
       trigger: WorkflowExecutionTrigger.MANUAL,
       startedAt: new Date(),
-      definition: flowDefinition,
+      definition: workflowDefinition,
       phases: {
         create: executionPlan.flatMap((phase) => {
           return phase.nodes.flatMap((node) => ({

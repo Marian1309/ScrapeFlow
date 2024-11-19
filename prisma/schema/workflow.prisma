@@ -4,8 +4,10 @@ model Workflow {
   name        String
   description String?
 
-  definition String
-  status     String
+  definition    String
+  status        String
+  executionPlan String?
+  creditsCost   Int     @default(0)
 
   lastRunAt     DateTime?
   lastRunId     String?

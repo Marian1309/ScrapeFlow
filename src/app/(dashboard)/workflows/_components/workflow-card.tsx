@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
+import RunBtn from './run-btn';
 import WorkflowActions from './workflow-actions';
 
 type Props = { workflow: Workflow };
@@ -56,6 +57,8 @@ const WorkflowCard: FC<Props> = ({ workflow }) => {
         </div>
 
         <div className="flex items-center space-x-2">
+          {!isDraft && <RunBtn workflowId={workflow.id} />}
+
           <Link
             className={cn(
               buttonVariants({ variant: 'outline', size: 'sm' }),
