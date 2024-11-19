@@ -67,7 +67,7 @@
   "editor.renderWhitespace": "none",
   "git.autofetch": true,
   "git.enableSmartCommit": true,
-  "workbench.colorTheme": "Noctis Minimus",
+  "workbench.colorTheme": "Noctis Obscuro",
   "editor.accessibilityPageSize": 300,
   "editor.bracketPairColorization.enabled": true,
   "explorer.expandSingleFolderWorkspaces": false,
