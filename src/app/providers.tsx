@@ -1,5 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
+import NextTopLoader from 'nextjs-toploader';
+
 import { Toaster } from '@/components/ui/sonner';
 
 import { NextThemesProvider, TanstackQueryProvider } from '@/components/providers';
@@ -18,6 +20,7 @@ const Providers: FC<Props> = ({ children }) => {
         {children}
 
         <Toaster richColors />
+        <NextTopLoader color="#10b981" showSpinner={false} />
       </NextThemesProvider>
     </TanstackQueryProvider>
   );
