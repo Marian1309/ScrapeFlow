@@ -9,7 +9,7 @@ const pageToHtmlTask = {
   label: 'Get HTML from URL',
   icon: (props: LucideProps) => <CodeIcon {...props} />,
   isEntryPoint: false,
-  credits: 5,
+  credits: 2,
   inputs: [
     {
       name: 'Web Page',

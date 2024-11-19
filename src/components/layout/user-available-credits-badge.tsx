@@ -34,7 +34,7 @@ const UserAvailableCreditsBadge: FC = () => {
       <span className="font-semibold capitalize">
         {isLoading && <Loader2Icon className="h-4 w-4 animate-spin" />}
         {!isLoading && data && <ReactCountupWrapper value={data} />}
-        {!isLoading && !data && '-'}
+        {!isLoading && data === undefined && '-'}
       </span>
     </Link>
   );
